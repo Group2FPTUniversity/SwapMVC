@@ -1,0 +1,103 @@
+﻿body {    
+    background-repeat: repeat;
+    background-color: white;
+    background-image: url('~/Images/background-paper.jpg');
+}
+
+.container{
+    width: 1150px;
+}
+
+/*-- HEADER --*/
+.page-header{
+    width:inherit;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+}
+
+.page-header .row{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.page-header a:hover{
+    text-decoration: none;
+}
+
+.page-header .breadcrumb{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/*-- BODY --*/
+.page-body{
+    width: inherit;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.left-div{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    float: left;
+    width: 800px;
+    height: 600px;
+}
+
+.right-div{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    float: right;
+    width: 330px;
+    height: 600px;
+}
+
+.right-div .block{
+    width: inherit;
+    height: 194px;
+    margin-bottom: 9px;
+    background-color: #45629c;
+    
+}
+
+.right-div .block:last-child{
+    margin-bottom: 0;
+}
+
+.right-div .block span{
+    margin: 0;
+    padding: 0;
+    width: 165px;
+    height: 194px;
+    float: left;
+    color: whitesmoke;
+    
+}
+
+.right-div .block span a{
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.right-div .block span h3{
+    margin-top: 5px;
+}
+
+/*-- FOOTER --*/
+.page-footer{
+    clear: both;
+    width: inherit;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    color: #45629c;
+    background-color: #eee;
+}

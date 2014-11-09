@@ -1,0 +1,18 @@
+﻿@model IEnumerable<SwapMVC.Models.Category>
+
+
+<div class="left-block">
+    <div class="header-category">
+        Danh mục
+    </div>
+    <ul class="category">
+        @foreach (var item in Model)
+        {
+            <a href="/Category/Book/" @item.ID>
+                <li>
+                    @item.Name
+                </li>
+            </a>
+        }
+    </ul>
+</div>

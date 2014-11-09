@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section Leftside {
+    <section>
+        <!--category-->
+        @{
+            SwapMVC.Models.SwapDBEntities dbCategory = new SwapMVC.Models.SwapDBEntities();
+            var category = dbCategory.Category.ToList();
+        }
+        @Html.Partial("_Category", category)
+
+        <div class="left-block">
+            <div class="header-category">
+                Sách vừa được swap
+            </div>
+            <ul class="category">
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+
+
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+
+
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+
+
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+            </ul>
+        </div>
+
+    </section>
+}
+
+<div id="carousel-example-generic" class="carousel slide" style="width:900px" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Images/b1.jpg" alt="b1" />
+            <div class="carousel-caption">
+                Caption here
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Images/b2.jpg" alt="b2">
+            <div class="carousel-caption">
+                Caption here
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Images/b3.jpg" alt="b3">
+            <div class="carousel-caption">
+                Caption here
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.carousel').carousel({
+            interval: 2000
+        })
+    </script>
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+
+<div class="topic-block">
+    <div class="topic-header">
+        Sách mới
+    </div>
+    <!--grid-->
+    <div class="topic">
+        <script>
+            $('#links').hover(function () {
+
+            });
+        </script>
+
+        <ul class="grid-row">
+            @{var i = 0;}
+
+            @{
+                SwapMVC.Models.SwapDBEntities dbBook = new SwapMVC.Models.SwapDBEntities();
+                var book = dbBook.Book.ToList();
+            }
+
+            @foreach (var item in book)
+            {
+
+                { i++; }
+                if (i <= 10)
+                {
+                    <li>
+                        <a href="~/Book/Details/@item.ID">
+                            <img class="img-thumbnail" id="links" src="@item.BookImage"/>
+
+                            <h5>@item.Title</h5>
+                            <h6>@item.Author</h6>
+                        </a>
+                    </li>
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+        </ul>
+
+    </div>
+</div>
+

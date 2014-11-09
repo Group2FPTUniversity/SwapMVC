@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Swap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Portal-style.css" rel="stylesheet" />
+    <!-- Optional: Include the jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.page-header').hide().fadeIn(1000);
+            $('.left-div').hide().fadeIn(1500);
+            $('.right-div').hide().fadeIn(2000);
+            $('.page-footer').hide().fadeIn(2500);
+            $('#sthing').click(function () {
+                $('#loginModal').modal('hide');
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="">
+                        <h2 style="margin-bottom:0; margin-top:25px; color:#45629c">
+                            <span><img style="float:left" src="~/Images/logo.png" /></span>
+                            SWAP
+                        </h2>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb" style="margin-bottom:3px">
+                        <li><a href="~/Home/Home">Trang chủ</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
+                        @RenderSection("Login", false)
+                        <li><a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
+                        @RenderSection("Register",false)
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Body -->
+        <div class="page-body">
+            <div class="left-div">
+                <img style="width:inherit; height:inherit" src="~/Images/Portal.png" />
+            </div>
+
+            <div class="right-div">
+                <div class="block">
+                    <span>
+                        <img style="width:inherit; height:inherit;" src="~/Images/books%20(1).jpg" />
+                    </span>
+                    <span style="padding:10px">
+                        <a href="~/Home/Home">
+                            <h3>Trang chủ</h3>
+                            Tìm kiếm những quyển sách bạn cần với thư viện sách phong phú và đa dạng của SWAP...
+                        </a>
+                    </span>
+                </div>
+                <div class="block">
+                    <span style="padding:10px">
+                        <a href="~/Book/MyBook">
+                            <h3>Sách của tôi</h3>
+                            Hãy chia sẻ bộ sách của bản thân với mọi người để việc đọc sách trở nên ý nghĩa hơn...
+                        </a>
+                    </span>
+                    <span>
+                        <img style="width:inherit; height:inherit;" src="~/Images/pages2.jpg" />
+                    </span>
+                </div>
+                <div class="block">
+                    <span>
+                        <a href="~/Home/About">
+                            <img style="width:inherit; height:inherit;" src="~/Images/Seed%20icon%20home.png" />
+                        </a>
+                    </span>
+                    <span style="padding:10px">
+                        <a href="~/Home/About">
+                            <h3>Chúng tôi</h3>
+                            SWAP là gì?
+                            SeedTeam là ai?
+                            Chúng tôi làm gì?
+                            Chúng tôi tin tưởng vào điều gì?...
+                        </a>
+                    </span>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+
+        <div class="page-footer">
+            © 2014 SeedTeamSE0864. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

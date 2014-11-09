@@ -1,0 +1,102 @@
+﻿@model SwapMVC.Models.SwapItem
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SwapItem</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BookID, "Book")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("BookID", String.Empty)
+            @Html.ValidationMessageFor(model => model.BookID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AccID, "Account")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AccID", String.Empty)
+            @Html.ValidationMessageFor(model => model.AccID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemType)
+            @Html.ValidationMessageFor(model => model.ItemType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemTitle)
+            @Html.ValidationMessageFor(model => model.ItemTitle)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemDcrpt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemDcrpt)
+            @Html.ValidationMessageFor(model => model.ItemDcrpt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemImage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemImage)
+            @Html.ValidationMessageFor(model => model.ItemImage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemStatus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemStatus)
+            @Html.ValidationMessageFor(model => model.ItemStatus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostDate)
+            @Html.ValidationMessageFor(model => model.PostDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

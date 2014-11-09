@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SwapDBModelStoreContainer" CdmEntityContainer="SwapDBEntities">
+    <EntitySetMapping Name="Account">
+      <EntityTypeMapping TypeName="SwapDBModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passwd" ColumnName="Passwd" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="UsrAddress" ColumnName="UsrAddress" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <ScalarProperty Name="AccType" ColumnName="AccType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Book">
+      <EntityTypeMapping TypeName="SwapDBModel.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="AccID" ColumnName="AccID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="PblYear" ColumnName="PblYear" />
+          <ScalarProperty Name="Descrptn" ColumnName="Descrptn" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="BookImage" ColumnName="BookImage" />
+          <ScalarProperty Name="BookStatus" ColumnName="BookStatus" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="DetailAddr" ColumnName="DetailAddr" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="SwapDBModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="SwapDBModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SwapItemID" ColumnName="SwapItemID" />
+          <ScalarProperty Name="AccID" ColumnName="AccID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SwapItem">
+      <EntityTypeMapping TypeName="SwapDBModel.SwapItem">
+        <MappingFragment StoreEntitySet="SwapItem">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="AccID" ColumnName="AccID" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="ItemTitle" ColumnName="ItemTitle" />
+          <ScalarProperty Name="ItemDcrpt" ColumnName="ItemDcrpt" />
+          <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ItemStatus" ColumnName="ItemStatus" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SwapTransaction">
+      <EntityTypeMapping TypeName="SwapDBModel.SwapTransaction">
+        <MappingFragment StoreEntitySet="SwapTransaction">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="SwapItemID" ColumnName="SwapItemID" />
+          <ScalarProperty Name="SwapDate" ColumnName="SwapDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SwapDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Account_Delete" FunctionName="SwapDBModel.Store.Account_Delete" />
+    <FunctionImportMapping FunctionImportName="Account_Insert" FunctionName="SwapDBModel.Store.Account_Insert" />
+    <FunctionImportMapping FunctionImportName="Account_Update" FunctionName="SwapDBModel.Store.Account_Update" />
+    <FunctionImportMapping FunctionImportName="Book_Delete" FunctionName="SwapDBModel.Store.Book_Delete" />
+    <FunctionImportMapping FunctionImportName="Book_Insert" FunctionName="SwapDBModel.Store.Book_Insert" />
+    <FunctionImportMapping FunctionImportName="Book_Update" FunctionName="SwapDBModel.Store.Book_Update" />
+    <FunctionImportMapping FunctionImportName="Category_Delete" FunctionName="SwapDBModel.Store.Category_Delete" />
+    <FunctionImportMapping FunctionImportName="Category_Insert" FunctionName="SwapDBModel.Store.Category_Insert" />
+    <FunctionImportMapping FunctionImportName="Category_Update" FunctionName="SwapDBModel.Store.Category_Update" />
+    <FunctionImportMapping FunctionImportName="Comment_Delete" FunctionName="SwapDBModel.Store.Comment_Delete" />
+    <FunctionImportMapping FunctionImportName="Comment_Insert" FunctionName="SwapDBModel.Store.Comment_Insert" />
+    <FunctionImportMapping FunctionImportName="Comment_Update" FunctionName="SwapDBModel.Store.Comment_Update" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SwapDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SwapDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SwapDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SwapDBModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SwapDBModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SwapDBModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SwapDBModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SwapDBModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SwapDBModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="SwapItem_Delete" FunctionName="SwapDBModel.Store.SwapItem_Delete" />
+    <FunctionImportMapping FunctionImportName="SwapItem_Insert" FunctionName="SwapDBModel.Store.SwapItem_Insert" />
+    <FunctionImportMapping FunctionImportName="SwapItem_Update" FunctionName="SwapDBModel.Store.SwapItem_Update" />
+    <FunctionImportMapping FunctionImportName="SwapTransaction_Delete" FunctionName="SwapDBModel.Store.SwapTransaction_Delete" />
+    <FunctionImportMapping FunctionImportName="SwapTransaction_Insert" FunctionName="SwapDBModel.Store.SwapTransaction_Insert" />
+    <FunctionImportMapping FunctionImportName="SwapTransaction_Update" FunctionName="SwapDBModel.Store.SwapTransaction_Update" />
+  </EntityContainerMapping>
+</Mapping>

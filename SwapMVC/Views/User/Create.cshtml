@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_PortalPartial.cshtml";
+    ViewBag.Title = "Contact";
+}
+
+@model SwapMVC.Models.Account
+
+
+@section Register {
+    <section>
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" style="width:430px;margin-top:85px">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="../Images/logo.png" />
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title" id="myModalLabel">Đăng ký</h3>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <fieldset>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Email)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Email)
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Passwd)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Passwd)
+                                    @Html.ValidationMessageFor(model => model.Passwd)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Fullname)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Fullname)
+                                    @Html.ValidationMessageFor(model => model.Fullname)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Gender)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Gender)
+                                    @Html.ValidationMessageFor(model => model.Gender)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Phone)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Phone)
+                                    @Html.ValidationMessageFor(model => model.Phone)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.City)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.City)
+                                    @Html.ValidationMessageFor(model => model.City)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.UsrAddress)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.UsrAddress)
+                                    @Html.ValidationMessageFor(model => model.UsrAddress)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Avatar)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.Avatar)
+                                    @Html.ValidationMessageFor(model => model.Avatar)
+                                </div>
+
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.AccType)
+                                </div>
+                                <div class="editor-field">
+                                    @Html.EditorFor(model => model.AccType)
+                                    @Html.ValidationMessageFor(model => model.AccType)
+                                </div>
+
+                                <p>
+                                    <input type="submit" value="Create" />
+                                </p>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
