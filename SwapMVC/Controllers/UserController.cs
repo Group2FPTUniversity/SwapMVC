@@ -21,8 +21,47 @@ namespace SwapMVC.Controllers
             return View(db.Account.ToList());
         }
 
+        public ActionResult Login()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Account u)
+        {
+            // this action is for handle post (login)
+            if (ModelState.IsValid) // this is check validity
+            {
+
+                var v = db.Account.Where(a => a.Email.Equals(u.Email) && a.Passwd.Equals(u.Passwd)).FirstOrDefault();
+                    if (v != null)
+                    {
+                        Session["LogedUserID"] = v.ID.ToString();
+                        Session["LogedUserFullname"] = v.Fullname.ToString();
+                        return RedirectToAction("AfterLogin");
+                    }
+                }
+            
+            return View(u);
+        }
+
+
         //
         // GET: /User/Details/5
+
+        public ActionResult AfterLogin()
+        {
+            if (Session["LogedUserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
 
         public ActionResult Details(int id = 0)
         {

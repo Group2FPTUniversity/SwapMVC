@@ -1,45 +1,108 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Layout = null;
 }
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Swap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Portal-style.css" rel="stylesheet" />
+    <!-- Optional: Include the jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.page-header').hide().fadeIn(1000);
+            $('.left-div').hide().fadeIn(1500);
+            $('.right-div').hide().fadeIn(2000);
+            $('.page-footer').hide().fadeIn(2500);
+            $('#sthing').click(function () {
+                $('#loginModal').modal('hide');
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="">
+                        <h2 style="margin-bottom:0; margin-top:25px; color:#45629c">
+                            <span><img style="float:left" src="~/Images/logo.png" /></span>
+                            SWAP
+                        </h2>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb" style="margin-bottom:3px">
+                        <li><a href="~/Home/Home">Trang chủ</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
+
+                        <li><a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
+                        @Html.Partial("~/Views/User/Create.cshtml")
+                    </ol>
+                </div>
+            </div>
         </div>
-    </section>
-}
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
 
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
 
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+        <!-- Body -->
+        <div class="page-body">
+            <div class="left-div">
+                <img style="width:inherit; height:inherit" src="~/Images/Portal.png" />
+            </div>
+
+            <div class="right-div">
+                <div class="block">
+                    <span>
+                        <img style="width:inherit; height:inherit;" src="~/Images/books%20(1).jpg" />
+                    </span>
+                    <span style="padding:10px">
+                        <a href="~/Home/Home">
+                            <h3>Trang chủ</h3>
+                            Tìm kiếm những quyển sách bạn cần với thư viện sách phong phú và đa dạng của SWAP...
+                        </a>
+                    </span>
+                </div>
+                <div class="block">
+                    <span style="padding:10px">
+                        <a href="~/Book/MyBook">
+                            <h3>Sách của tôi</h3>
+                            Hãy chia sẻ bộ sách của bản thân với mọi người để việc đọc sách trở nên ý nghĩa hơn...
+                        </a>
+                    </span>
+                    <span>
+                        <img style="width:inherit; height:inherit;" src="~/Images/pages2.jpg" />
+                    </span>
+                </div>
+                <div class="block">
+                    <span>
+                        <a href="~/Home/About">
+                            <img style="width:inherit; height:inherit;" src="~/Images/Seed%20icon%20home.png" />
+                        </a>
+                    </span>
+                    <span style="padding:10px">
+                        <a href="~/Home/About">
+                            <h3>Chúng tôi</h3>
+                            SWAP là gì?
+                            SeedTeam là ai?
+                            Chúng tôi làm gì?
+                            Chúng tôi tin tưởng vào điều gì?...
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            © 2014 SeedTeamSE0864. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

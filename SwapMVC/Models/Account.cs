@@ -11,6 +11,7 @@ namespace SwapMVC.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Account
     {
@@ -22,8 +23,11 @@ namespace SwapMVC.Models
         }
     
         public int ID { get; set; }
+         [Required(ErrorMessage = "Please Provide Email", AllowEmptyStrings = false)]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Please Provide Passwords", AllowEmptyStrings = false)]
         public string Passwd { get; set; }
+        [Required(ErrorMessage = "Please Provide Fullname", AllowEmptyStrings = false)]
         public string Fullname { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<int> Phone { get; set; }

@@ -101,3 +101,18 @@
     color: #45629c;
     background-color: #eee;
 }
+/*modal*/
+.modal-title{
+    margin:8px;
+}
+.input-group{
+    width: 330px;
+    margin-left: 35px; 
+    margin-top: 8px;
+}
+.modal-footer{
+    border-top:none;
+    margin-top:0px;
+    margin-left:15px;
+    padding-top:0px;
+}

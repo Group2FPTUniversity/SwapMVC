@@ -35,7 +35,7 @@
             <img style="width:inherit; height: inherit;" src="@Model.BookImage" alt="Ảnh bìa sách" />
         </div>
         <div class="book-detail">
-            <h2>Tên sách</h2>
+            <h2> @ViewData["bookName"]</h2>
             <ul style="display: inline-block; width:350px;">
                 <li>
                     Tác giả: @Model.Author
@@ -234,7 +234,4 @@
 
     </ul>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

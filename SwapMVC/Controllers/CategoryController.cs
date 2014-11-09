@@ -24,14 +24,11 @@ namespace SwapMVC.Controllers
         //
         // GET: /Categories/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int id)
         {
-            Category category = db.Category.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
+            ViewData["cateID"] = id;
+            var list = db.Book.Where(bookID => bookID.CategoryID == id).ToList();
+            return View(list);
         }
 
         //

@@ -37,6 +37,7 @@ namespace SwapMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["bookName"] = book.Title;
             return View(book);
         }
 

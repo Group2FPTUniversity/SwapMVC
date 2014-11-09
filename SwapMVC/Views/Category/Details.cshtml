@@ -1,22 +1,77 @@
-﻿@model SwapMVC.Models.Category
+﻿@model IEnumerable<SwapMVC.Models.Book>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Tủ sách của tôi";
 }
 
-<h2>Details</h2>
+@section Leftside {
+    <section>
+        <!--category-->
+        @{
+            SwapMVC.Models.SwapDBEntities dbCategory = new SwapMVC.Models.SwapDBEntities();
+            var category = dbCategory.Category.ToList();
+        }
+        @Html.Partial("_Category", category)
 
-<fieldset>
-    <legend>Category</legend>
+        <div class="left-block">
+            <div class="header-category">
+                Sách vừa được swap
+            </div>
+            <ul class="category">
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+
+
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+
+
+                <a href="">
+                    <li>
+                        Tên sách
+                    </li>
+                </a>
+            </ul>
+        </div>
+
+    </section>
+}
+<div class="topic-block">
+    <h1 style="border-bottom:solid 1px whitesmoke;">
+        @{
+           
+            var e = Model.GetType();
+              SwapMVC.Models.SwapDBEntities dbCategory2 = new SwapMVC.Models.SwapDBEntities();
+              var cateName = dbCategory2.Category.Find(ViewData["cateID"]);
+        }
+        @cateName.Name
+    
+      
+    </h1>
+    <!--grid-->    
+    <ul class="book-list">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="~/Book/Details/@item.ID">
+                    <img src="@item.BookImage" class="img-thumbnail" />
+                    <h5>@item.Title</h5>
+                    <h6>@item.Author</h6>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
