@@ -109,15 +109,13 @@
 
             @{
                 SwapMVC.Models.SwapDBEntities dbBook = new SwapMVC.Models.SwapDBEntities();
-                var book = dbBook.Book.ToList();
+                var book = dbBook.Book.ToList().OrderByDescending(o => o.PostDate).Take(10).ToList() ;
             }
 
             @foreach (var item in book)
             {
 
-                { i++; }
-                if (i <= 10)
-                {
+               
                     <li>
                         <a href="~/Book/Details/@item.ID">
                             <img class="img-thumbnail" id="links" src="@item.BookImage"/>
@@ -127,11 +125,7 @@
                         </a>
                     </li>
 
-                }
-                else
-                {
-                    break;
-                }
+                
             }
 
         </ul>

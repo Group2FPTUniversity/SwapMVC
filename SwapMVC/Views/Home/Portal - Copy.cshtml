@@ -15,10 +15,10 @@
     <script>
 
         $(document).ready(function () {
-            $('.page-header').hide().fadeIn(500);
-            $('.left-div').hide().fadeIn(800);
-            $('.right-div').hide().fadeIn(1200);
-            $('.page-footer').hide().fadeIn(1500);
+            $('.page-header').hide().fadeIn(1000);
+            $('.left-div').hide().fadeIn(1500);
+            $('.right-div').hide().fadeIn(2000);
+            $('.page-footer').hide().fadeIn(2500);
             $('#sthing').click(function () {
                 $('#loginModal').modal('hide');
             });
@@ -43,9 +43,10 @@
                     <ol class="breadcrumb" style="margin-bottom:3px">
                         <li><a href="~/Home/Home">Trang chủ</a></li>
                         <li><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
-                        @RenderSection("Login", false)
+                        @Html.Partial("~/Views/User/Login.cshtml")
                         <li><a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
-                        @RenderSection("Register",false)
+                       
+                        @Html.Partial("~/Views/User/Create.cshtml")
                     </ol>
                 </div>
             </div>
@@ -98,7 +99,6 @@
                     </span>
                 </div>
             </div>
-            @RenderBody()
         </div>
 
         <div class="page-footer">

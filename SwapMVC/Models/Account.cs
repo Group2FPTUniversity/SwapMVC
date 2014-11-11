@@ -27,7 +27,6 @@ namespace SwapMVC.Models
         public string Email { get; set; }
         [Required(ErrorMessage = "Please Provide Passwords", AllowEmptyStrings = false)]
         public string Passwd { get; set; }
-        [Required(ErrorMessage = "Please Provide Fullname", AllowEmptyStrings = false)]
         public string Fullname { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<int> Phone { get; set; }
@@ -40,4 +39,5 @@ namespace SwapMVC.Models
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<SwapItem> SwapItem { get; set; }
     }
+
 }

@@ -19,7 +19,7 @@
         });
     </script>
 </head>
-<body>
+<body style=" background-color: whitesmoke">
     <!--Header-->
     <div class="header">
         <div class="container">
@@ -31,9 +31,13 @@
                     <li class="nav-item">
                         <a href="~/Home/Home" title="Trang chủ">Trang chủ</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="~/Book/MyBook">Tủ sách của tôi</a>
-                    </li>
+                    @if (@Session["LogedUserID"] != null)
+                    { 
+                        <li class="nav-item">
+                            <a href="~/Book/MyBook/@Session["LogedUserID"]">Tủ sách của tôi</a>
+                        </li>
+                    }
+
                     <li class="nav-item">
                         <a href="~/Home/Contact">Liên hệ</a>
                     </li>
@@ -61,7 +65,7 @@
                     <li>
                         <a href="" title="Home">Tài khoản</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>

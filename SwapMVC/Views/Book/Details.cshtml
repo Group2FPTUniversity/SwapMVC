@@ -35,7 +35,9 @@
             <img style="width:inherit; height: inherit;" src="@Model.BookImage" alt="Ảnh bìa sách" />
         </div>
         <div class="book-detail">
-            <h2> @ViewData["bookName"]</h2>
+            <h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"> 
+                @ViewData["bookName"]
+            </h2>
             <ul style="display: inline-block; width:350px;">
                 <li>
                     Tác giả: @Model.Author

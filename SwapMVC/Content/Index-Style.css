@@ -1,4 +1,9 @@
 ﻿/*header*/
+body{
+
+}
+
+
 .header {
     display: inline-block;
     width: 1366px;
@@ -228,13 +233,12 @@
     vertical-align: top;
     margin: 0;
     padding: 0;
-    background-color: white;
     color: black;
 }
 
 .swapper-intro {
     display: block;
-    background-color: whitesmoke;
+    background-color: white;
     vertical-align: top;
     width: inherit;
     height: auto;

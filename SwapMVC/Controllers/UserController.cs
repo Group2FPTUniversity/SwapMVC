@@ -28,7 +28,6 @@ namespace SwapMVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(Account u)
         {
             // this action is for handle post (login)
@@ -40,31 +39,27 @@ namespace SwapMVC.Controllers
                     {
                         Session["LogedUserID"] = v.ID.ToString();
                         Session["LogedUserFullname"] = v.Fullname.ToString();
-                        return RedirectToAction("AfterLogin");
+                        return Redirect("~/Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.!");
                     }
                 }
             
             return View(u);
         }
 
-
+      
         //
         // GET: /User/Details/5
 
-        public ActionResult AfterLogin()
-        {
-            if (Session["LogedUserID"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
-
         public ActionResult Details(int id = 0)
         {
+            if (Session["LogedUserFullname"] == null)
+            {
+                return Redirect("~/Home");
+            }
             Account account = db.Account.Find(id);
             if (account == null)
             {
@@ -92,7 +87,7 @@ namespace SwapMVC.Controllers
             {
                 db.Account.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("~/Home");
             }
 
             return View(account);
@@ -118,6 +113,10 @@ namespace SwapMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Account account)
         {
+            if (Session["LogedUserFullname"] == null)
+            {
+                return Redirect("~/Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(account).State = EntityState.Modified;
@@ -132,6 +131,10 @@ namespace SwapMVC.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+            if (Session["LogedUserFullname"] == null)
+            {
+                return Redirect("~/Home");
+            }
             Account account = db.Account.Find(id);
             if (account == null)
             {

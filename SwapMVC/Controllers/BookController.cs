@@ -15,16 +15,19 @@ namespace SwapMVC.Controllers
 
         //
         // GET: /Book/
-        public ActionResult MyBook()
+        public ActionResult MyBook(int id)
         {
-            var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            return View(book.ToList());
+            //var book = db.Book.Include(b => b.Account).Include(b => b.Category);
+            //return View(book.ToList());
+            var list = db.Book.Where(book => book.AccID== id).ToList();
+            return View(list);
         }
 
         public ActionResult Index()
         {
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            return View(book.ToList());
+            List<Book> list = book.ToList().OrderBy(o=>o.PostDate).Take(5).ToList();
+            return View(list);
         }
 
         //
