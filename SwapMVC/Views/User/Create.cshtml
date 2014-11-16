@@ -10,7 +10,7 @@
 
     <div class="modal-dialog" style="width:430px;margin-top:85px">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body" >
                 <img src="../Images/logo.png" />
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="myModalLabel">Đăng ký</h3>
@@ -19,103 +19,104 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
 
-                    <fieldset>
+                    <fieldset style="padding-left:20px; padding-right:20px;">
 
-                        
-                        <div class="editor-field">
-                            <div class="input-group">
-                                <span class="input-group-addon">></span>
-                                <input type="text" class="form-control" name="Email" placeholder="Email">
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Email)
-                        </div>
-
-                        <div class="editor-field">
-                            <div class="input-group">
-                                <span class="input-group-addon">></span>
-                                <input type="text" class="form-control" name="Passwd" placeholder="Mật khẩu">
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Passwd)
-                        </div>
-
-                        <div class="editor-field">
-                            <div class="input-group">
-                                <span class="input-group-addon">></span>
-                                <input type="text" class="form-control" name="Fullname" placeholder="Họ và tên">
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Fullname)
-                        </div>
-
-                      
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.Gender)
-                            @Html.ValidationMessageFor(model => model.Gender)
-                        </div>
-
-                        <div class="editor-field">
-                            <div class="input-group">
-                                <span class="input-group-addon">></span>
-                                <input type="text" class="form-control" name="Phone" placeholder="Số điện thoại">
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Phone)
-                        </div>
-
-                        <div class="editor-field">
-                            <div class="input-group">
-                                <span class="input-group-addon">></span>
-                                <input type="text" class="form-control" name="City" placeholder="Thành phố">
-                            </div>
-                            @Html.ValidationMessageFor(model => model.City)
-                        </div>
-
-                        <div class="editor-field">
-                            <div class="input-group">
-                                <span class="input-group-addon">></span>
-                                <input type="text" class="form-control" name="UsrAddress" placeholder="Địa chỉ">
-                            </div>
-                            @Html.ValidationMessageFor(model => model.UsrAddress)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Avatar)
-                        </div>
-                        <div class="editor-field">
-
+                        <div class="editor-field" style="margin-bottom: 15px;">
                             <div>
-                                <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 150px;" />
-                                <input id="browseImg" name="file" type='file' onchange="readURL(this);" style="" />
-                                <button type="button" class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
+                                <img id="itemImg" src="" alt="" style="display:inline-block; width: 150px; height: 150px;" />
+                                <input id="browseImg" name="file" type='file' onchange="readURL(this);" style="display:none;" />
+                                <button type="button" class="btn btn-default" onclick="HandleBrowseClick()" style="display:inline-block; margin-left:5px;">Chọn ảnh đại diện</button>
                                 <script>
-                                        function HandleBrowseClick() {
-                                            var fileinput = document.getElementById("browseImg");
-                                            fileinput.click();
-                                        }
+                                    function HandleBrowseClick() {
+                                        var fileinput = document.getElementById("browseImg");
+                                        fileinput.click();
+                                    }
 
-                                        function readURL(input) {
-                                            if (input.files && input.files[0]) {
-                                                var reader = new FileReader();
+                                    function readURL(input) {
+                                        if (input.files && input.files[0]) {
+                                            var reader = new FileReader();
 
-                                                reader.onload = function (e) {
-                                                    $('#itemImg').attr('src', e.target.result)
-                                                };
-                                                reader.readAsDataURL(input.files[0]);
-                                            }
+                                            reader.onload = function (e) {
+                                                $('#itemImg').attr('src', e.target.result)
+                                            };
+                                            reader.readAsDataURL(input.files[0]);
                                         }
+                                    }
                                 </script>
                             </div>
 
                             @Html.ValidationMessageFor(model => model.Avatar)
                         </div>
 
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.AccType)
+
+                        
+                        <div class="editor-field" style="margin-bottom: 15px;">
+                            <input type="text" class="form-control" name="Email" placeholder="Email">
+                            @Html.ValidationMessageFor(model => model.Email)
                         </div>
-                        <div class="editor-field">
+
+                        <div class="editor-field" style="margin-bottom: 15px;">
+                            <input type="text" class="form-control" name="Passwd" placeholder="Mật khẩu">
+                            @Html.ValidationMessageFor(model => model.Passwd)
+                        </div>
+
+                        <div class="editor-field" style="display: inline-block; width:67%; margin-bottom: 15px; margin-right:15px;">
+                            <input type="text" class="form-control" name="Fullname" placeholder="Họ và tên">
+                            @Html.ValidationMessageFor(model => model.Fullname)
+                        </div>
+
+                      
+                        <div class="editor-field" style="display: inline-block; margin-bottom: 15px;">
+                            @Html.ValidationMessageFor(model => model.Gender)
+                            <div class="dropdown" style="display:inline-block; margin-bottom: 1px;">
+                                <input name="Gender" id="Gender" type="hidden" value="" />
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                    <span id="btnLabel">Giới tính</span>
+                                    <span class="caret" style="margin-left: 5px;"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-value="@true">Nam</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-value="@false">Nữ</a></li>
+                                </ul>
+                                <script>
+                                    $(".dropdown-menu li a").click(function () {
+                                        $(this).parents(".dropdown").find('.btn #btnLabel').text($(this).text());
+                                        $(this).parents(".dropdown").find('.btn').val($(this).text());
+                                        $(this).parents(".dropdown").find('#Gender').val($(this).data('value'));
+
+                                        var type = document.getElementById("btnLabel").innerText;
+                                        if (type.localeCompare("Mua lại") == 0) {
+                                            $("#priceDiv").show();
+                                        } else {
+                                            $("#priceDiv").hide();
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="editor-field" style="display: inline-block; width:48%; margin-bottom: 15px; margin-right: 12px;">
+                            <input type="text" class="form-control" name="Phone" placeholder="Số điện thoại">
+                            @Html.ValidationMessageFor(model => model.Phone)
+                        </div>
+
+                        <div class="editor-field" style="display: inline-block; width:47%; margin-bottom: 15px;">
+                            <input type="text" class="form-control" name="City" placeholder="Thành phố">
+                            @Html.ValidationMessageFor(model => model.City)
+                        </div>
+
+                        <div class="editor-field" style="margin-bottom: 15px;">
+                            <input type="text" class="form-control" name="UsrAddress" placeholder="Địa chỉ">
+                            @Html.ValidationMessageFor(model => model.UsrAddress)
+                        </div>
+
+
+                        <div class="editor-field" style="margin-bottom: 15px;">
                             <input type="hidden" class="form-control" name="AccType" value="User">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <input type="submit" value="Create" class="btn btn-primary">
+                            <button type="submit" value="Create" class="btn btn-primary" onclick="Submit">Tạo tài khoản</button>
                         </div>
                     
                     </fieldset>

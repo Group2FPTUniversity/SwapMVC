@@ -19,19 +19,43 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
                         <h4 class="modal-title" id="myModalLabel">Thêm sách mới</h4>
                     </div>
-                    <div class="modal-body" style="height:auto; padding-left:30px; width:400px; margin-bottom: 5px;">
+                    <div class="modal-body" style="height:auto; padding-left:20px; padding-right:20px; margin-bottom: 5px;">
                         <input name="AccID" type="hidden" value="@Session["LogedUserID"].ToString()"  />
                         <input name="BookStatus" type="hidden" value="Đang thương lượng" />
                         <input name="PostDate" type="hidden" value="@DateTime.Now" />
 
+
+                        <!--Img-->
+                        <div style="margin-bottom:15px;">
+                            <img id="itemImg" src="" alt="" style="display:inline-block; width: 150px; height: 180px;" />
+                            <input id="browseImg" name="file" type='file' onchange="readURL(this);" style="display:none;" />
+                            <button type="button" class="btn btn-default" onclick="HandleBrowseClick()" style="display:inline-block; margin-left:5px;">Tải ảnh lên</button>
+                            <script>
+                                function HandleBrowseClick() {
+                                    var fileinput = document.getElementById("browseImg");
+                                    fileinput.click();
+                                }
+
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            $('#itemImg').attr('src', e.target.result)
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                            </script>
+                        </div>
                         <!--Title-->
-                        <input id="txtTitle" name="Title" type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Tiêu đề" />
-                        <input type="text" name="Author" class="form-control" style="display:inline-block; width:230px; margin-bottom:5px; margin-right:5px;" placeholder="Tác giả" />
+                        <input id="txtTitle" name="Title" type="text" class="form-control" style="width:100%; margin-bottom: 5px;" placeholder="Tiêu đề" />
+                        <input type="text" name="Author" class="form-control" style="display:inline-block; width:48%; margin-bottom:5px; margin-right:5px;" placeholder="Tác giả" />
 
                         <!--Categories-->
-                        <div class="dropdown" style="display:inline-block;">
+                        <div class="dropdown" style="display:inline-block; margin:0;">
                             <input name="CategoryID" id="CategoryID" type="hidden" value="" />
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="margin-top:7px;">
                                 <span id="btnLabel">Danh mục</span>
                                 <span class="caret" style="margin-left: 5px;"></span>
                             </button>
@@ -55,40 +79,15 @@
                             </script>
                         </div>
 
-                        <input type="text" name="Publisher" class="form-control" style="display:inline-block; width:230px; margin-bottom:5px; margin-right:5px;" placeholder="Nhà xuất bản" />
-                        <input type="number" name="PblYear" class="form-control" style="display:inline-block; width:150px; margin-bottom:10px; margin-right:5px;" placeholder="Năm xuất bản" />
-                        <input type="number" name="Price" class="form-control" style="width:230px; margin-bottom:10px; margin-right:5px;" placeholder="Giá bìa" />
+                        <input type="text" name="Publisher" class="form-control" style="display:inline-block; width:48%; margin-bottom:5px; margin-right:5px;" placeholder="Nhà xuất bản" />
+                        <input type="number" name="PblYear" class="form-control" style="display:inline-block; width:48%; margin-bottom:10px;" placeholder="Năm xuất bản" />
+                        <input type="number" name="Price" class="form-control" style="display:inline-block; width:48%; margin-bottom:10px; margin-right:5px;" placeholder="Giá bìa" /><span style="font-size:14px"> (VNĐ)</span>
 
                         <!--Description-->
-                        <textarea name="Descrptn" class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
+                        <textarea name="Descrptn" class="form-control" style="min-width:100%; max-width:100%; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
 
-                        <input name="City" type="text" class="form-control" style="display:inline-block; width:190px; margin-bottom:5px; margin-right:5px;" placeholder="Địa điểm" />
-                        <input name="DueDate" type="text" class="form-control" style="display:inline-block; width:190px; margin-bottom:5px; margin-right:5px;" placeholder="Hạn cuối" />
-
-                        <!--Img-->
-                        <div>
-                            <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 180px;" />
-                            <input id="browseImg" name="file" type='file' onchange="readURL(this);" style="display:none;" />
-                            <button type="button" class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
-                            <script>
-                                function HandleBrowseClick() {
-                                    var fileinput = document.getElementById("browseImg");
-                                    fileinput.click();
-                                }
-
-                                function readURL(input) {
-                                    if (input.files && input.files[0]) {
-                                        var reader = new FileReader();
-
-                                        reader.onload = function (e) {
-                                            $('#itemImg').attr('src', e.target.result)
-                                        };
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-                            </script>
-                        </div>
-
+                        <input name="City" type="text" class="form-control" style="display:inline-block; width:48%; margin-bottom:5px; margin-right:5px;" placeholder="Địa điểm" />
+                        <input name="DueDate" type="text" class="form-control" style="display:inline-block; width:48%; margin-bottom:5px;" placeholder="Hạn cuối" />
 
                     </div>
                     <div class="modal-footer">

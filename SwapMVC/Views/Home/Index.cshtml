@@ -47,9 +47,9 @@
                             if (@Session["LogedUserFullname"] == null)
                             {
                                 <li><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
-                                @Html.Partial("~/Views/User/Login.cshtml")
+                                @Html.Partial("~/Views/User/Login.cshtml", new SwapMVC.Models.Account())
                                 <li> / <a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
-                                @Html.Partial("~/Views/User/Create.cshtml")
+                                @Html.Partial("~/Views/User/Create.cshtml", new SwapMVC.Models.Account())
                             }
                             else
                             {

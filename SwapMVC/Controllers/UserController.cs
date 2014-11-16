@@ -85,16 +85,17 @@ namespace SwapMVC.Controllers
         {
             if (file != null)
             {
-                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/User/") + account.ID.ToString() + file.FileName);
+                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/User/") + file.FileName);
 
-                account.Avatar = "~/UserImg/User/" + account.ID.ToString() + file.FileName;
+                account.Avatar = "~/UserImg/User/"  + file.FileName;
 
             }
             if (ModelState.IsValid)
             {
                 db.Account.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return Login(account);
             }
 
             return View(account);

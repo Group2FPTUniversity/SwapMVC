@@ -32,7 +32,14 @@
 <div class="intro-block">
     <div class="book-intro">
         <div class="book-img">
-            <img style="width:inherit; height: inherit;" src="@Model.BookImage" alt="Ảnh bìa sách" />
+            @{
+                string bookImgUrl = "";
+                if (@Model.BookImage != null)
+                {
+                    bookImgUrl = @Url.Content(@Model.BookImage);
+                }
+            }
+            <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" />
         </div>
         <div class="book-detail">
             <h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
@@ -64,9 +71,20 @@
                 <h4>Mô tả</h4>
                 @Model.Descrptn
             </div>
-            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-SwapRcmd" style="margin-left:25px;">Đề xuất đổi</button>
-            <!-- Modal -->
-            @Html.Partial("~/Views/SwapItem/Create.cshtml", new SwapMVC.Models.SwapItem(), new ViewDataDictionary {{"bookID", Model.ID}})
+            @{
+                if (int.Parse(@Session["LogedUserID"].ToString()) == @Model.AccID)
+                {
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Chỉnh sửa</button>
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Khóa</button>
+                }
+                else
+                {
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-SwapRcmd" style="margin-left:25px;">Đề xuất đổi</button>
+                    <!-- Modal -->
+                    @Html.Partial("~/Views/SwapItem/Create.cshtml", new SwapMVC.Models.SwapItem(), new ViewDataDictionary { { "bookID", Model.ID } })
+                }
+            }
+            
         </div>
     </div>
 </div>

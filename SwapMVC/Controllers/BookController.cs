@@ -71,7 +71,7 @@ namespace SwapMVC.Controllers
             {
                 db.Book.Add(book);
                 db.SaveChanges();
-                return RedirectToAction("MyBook");
+                return RedirectToAction("MyBook/" + book.AccID.ToString());
             }
 
             ViewBag.AccID = new SelectList(db.Account, "ID", "Email", book.AccID);
