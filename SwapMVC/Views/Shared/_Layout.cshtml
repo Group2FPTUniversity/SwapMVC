@@ -62,10 +62,22 @@
                             </div>
                         </form>
                     </li>
-                    <li>
-                        <a href="" title="Home">Tài khoản</a>
-                    </li>
-
+                    @{
+                        if (@Session["LogedUserFullname"] == null)
+                        {
+                            <li><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
+                            @Html.Partial("~/Views/User/Login.cshtml")
+                            <li> / <a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
+                            @Html.Partial("~/Views/User/Create.cshtml")
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="~/Book/MyBook/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
+                                <a href="" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>

@@ -40,7 +40,6 @@ namespace SwapMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewData["bookName"] = book.Title;
             return View(book);
         }
 
@@ -59,13 +58,20 @@ namespace SwapMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Book book)
+        public ActionResult Create(Book book, HttpPostedFileBase file)
         {
+            if (file != null)
+            {
+                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/Book/") + file.FileName);
+
+                book.BookImage = "~/UserImg/Book/" + file.FileName;
+
+            }
             if (ModelState.IsValid)
             {
                 db.Book.Add(book);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyBook");
             }
 
             ViewBag.AccID = new SelectList(db.Account, "ID", "Email", book.AccID);

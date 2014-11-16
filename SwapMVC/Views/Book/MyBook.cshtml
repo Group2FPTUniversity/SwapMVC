@@ -6,21 +6,31 @@
 
 @section Leftside {
     <section>
-        <div class="info-block" style="background-color:transparent; border-right:solid 2px whitesmoke;">
-            <div class="swapper-intro">
+        @{
+            int userID = int.Parse(@Session["LogedUserID"].ToString());
+            SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+            var user = db.Account.Find(userID);
+            string imgUrl = "";
+            if (user.Avatar != null)
+            {
+                imgUrl = @Url.Content(user.Avatar);
+            }
+        }
+        <div class="info-block" style="width:230px; background-color:white; padding-bottom:100px;">
+            <div class="swapper-intro" style="padding-left:15px; padding-right:15px;">
                 <div style="display:block; width: 200px; height: 200px; margin-top:10px;">
-                    <img src="" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
-                </div>
-                <div class="swapper-detail">
-                    <a href="">Tên_người_dùng</a>
+                    <img src="@imgUrl" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
+                </div>                
+                <div class="swapper-detail" style="margin:7px;">
+                    <a href="">@user.Fullname</a>
                     <ul style="margin:0; padding-left: 10px; list-style:none;">
                         <li>
                             <span class="glyphicon glyphicon-map-marker"></span>
-                            TPHCM
+                            @user.City
                         </li>
                         <li>
                             <span class="glyphicon glyphicon-phone-alt"></span>
-                            xxx-xxx-xxx
+                            @user.Phone
                         </li>
                     </ul>
                 </div>
@@ -30,7 +40,7 @@
                     <h4><a href="" style="text-decoration:none; color:#646464;">Thông tin chung</a></h4>
                 </li>
                 <li>
-                    <h4><a href="" style="text-decoration:none; color:#646464;">Tủ sách</a></h4>
+                    <h4><a href="" style="text-decoration:none; color:#646464;">Sách của tôi</a></h4>
                 </li>
                 <li>
                     <h4><a href="" style="text-decoration:none; color:#646464;">Sách đã đổi</a></h4>
@@ -42,86 +52,13 @@
         </div>
     </section>
 }
-<div class="topic-block">
+<div class="topic-block" style="padding:10px; padding-left:20px; padding-right:20px; ">
     <h1 style="border-bottom:solid 1px whitesmoke;">
         Tủ sách của tôi
         <span>
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-AddNewBook" style="display:inline; float:right;">Thêm mới</button>
             <!-- Modal -->
-            <div class="modal fade" id="Modal-AddNewBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="width: 460px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Thêm sách mới</h4>
-                        </div>
-                        <div class="modal-body" style="height:auto; padding-left:30px;">
-                            <form action="~/Views/Book/Index.cshtml" style="width:400px; margin-bottom: 5px;">
-                                <!--Title-->
-                                <input id="txtTitle" type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Tiêu đề" />
-                                <input type="text" class="form-control" style="display:inline-block; width:230px; margin-bottom:5px; margin-right:5px;" placeholder="Tác giả" />
-
-                                <!--Type-->
-                                <div class="dropdown" style="display:inline-block;">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                        <span id="btnLabel">Danh mục</span>
-                                        <span class="caret" style="margin-left: 5px;"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"></a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"></a></li>
-                                    </ul>
-                                    <script>
-                                        $(".dropdown-menu li a").click(function () {
-                                            $(this).parents(".dropdown").find('.btn #btnLabel').text($(this).text());
-                                            $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-                                        });
-                                    </script>
-                                </div>
-
-                                <input type="text" class="form-control" style="display:inline-block; width:230px; margin-bottom:5px; margin-right:5px;" placeholder="Nhà xuất bản" />
-                                <input type="number" class="form-control" style="display:inline-block; width:150px; margin-bottom:10px; margin-right:5px;" placeholder="Năm xuất bản" />
-                                <input type="number" class="form-control" style="width:230px; margin-bottom:10px; margin-right:5px;" placeholder="Giá bìa" />
-
-                                <!--Description-->
-                                <textarea class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
-
-                                <input type="text" class="form-control" style="display:inline-block; width:190px; margin-bottom:5px; margin-right:5px;" placeholder="Địa điểm" />
-                                <input type="text" class="form-control" style="display:inline-block; width:190px; margin-bottom:5px; margin-right:5px;" placeholder="Hạn cuối" />
-
-                                <!--Img-->
-                                <div>
-                                    <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 180px;" />
-                                    <input id="browseImg" type='file' onchange="readURL(this);" style="display:none;" />
-                                    <button class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
-                                    <script>
-                                        function HandleBrowseClick() {
-                                            var fileinput = document.getElementById("browseImg");
-                                            fileinput.click();
-                                        }
-
-                                    </script>
-                                </div>
-
-                                <!--Submit-->
-                                <input id="btnSubmit" type="submit" value="Create" style="display:none;" />
-                            </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-primary" onclick="Submit">Đăng</button>
-                            <script>
-                                function Submit() {
-                                    var fileinput = document.getElementById("btnSubmit");
-                                    fileinput.click();
-                                }
-                            </script>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Views/Book/Create.cshtml", new SwapMVC.Models.Book())
         </span>
     </h1>
     <!--grid-->

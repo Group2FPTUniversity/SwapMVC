@@ -53,16 +53,12 @@
                             }
                             else
                             {
-                                <li> Welcome <a href="~/Book/MyBook/@Session["LogedUserID"]">
-    @Session["LogedUserFullname"].ToString()
-</a>
+                                <li> 
+                                    Chào <a href="~/Book/MyBook/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString()</a>
+                                    <a href="" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
                                 </li>
                             }
-
-
                         }
-
-
                     </ol>
                 </div>
             </div>
@@ -89,7 +85,7 @@
                 </div>
                 <div class="block">
                     <span style="padding:10px">
-                        <a href="~/Book/MyBook">
+                        <a href="~/Book/MyBook/@Session["LogedUserID"]">
                             <h3>Sách của tôi</h3>
                             Hãy chia sẻ bộ sách của bản thân với mọi người để việc đọc sách trở nên ý nghĩa hơn...
                         </a>

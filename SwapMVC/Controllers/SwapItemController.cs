@@ -56,7 +56,7 @@ namespace SwapMVC.Controllers
             {
                 db.SwapItem.Add(swapitem);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + swapitem.BookID, "Book");
             }
 
             ViewBag.AccID = new SelectList(db.Account, "ID", "Email", swapitem.AccID);

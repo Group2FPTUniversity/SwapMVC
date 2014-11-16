@@ -1,0 +1,43 @@
+﻿@model SwapMVC.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Comment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SwapItem.ItemType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SwapItem.ItemType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Account.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Account.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Content)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Content)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CommentDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CommentDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -12,15 +12,15 @@
                 <img src="" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
             </div>
             <div class="swapper-detail">
-                <a href="">Tên_người_dùng</a>
+                <a href="">@Model.Account.Fullname</a>
                 <ul style="margin:0; padding:0; padding-left: 10px; list-style:none;">
                     <li>
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        TPHCM
+                        @Model.Account.City
                     </li>
                     <li>
                         <span class="glyphicon glyphicon-phone-alt"></span>
-                        xxx-xxx-xxx
+                        @Model.Account.Phone
                     </li>
                 </ul>
             </div>
@@ -35,8 +35,8 @@
             <img style="width:inherit; height: inherit;" src="@Model.BookImage" alt="Ảnh bìa sách" />
         </div>
         <div class="book-detail">
-            <h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"> 
-                @ViewData["bookName"]
+            <h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                @Model.Title
             </h2>
             <ul style="display: inline-block; width:350px;">
                 <li>
@@ -66,94 +66,12 @@
             </div>
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-SwapRcmd" style="margin-left:25px;">Đề xuất đổi</button>
             <!-- Modal -->
-            <div class="modal fade" id="Modal-SwapRcmd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="width: 460px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Đề xuất đổi</h4>
-                        </div>
-                        <div class="modal-body" style="height:auto; padding-left:30px;">
-                            <form style="width:400px; margin-bottom: 5px;">
-                                <!--Title-->
-                                <input id="txtTitle" type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Tiêu đề" />
-
-                                <!--Type-->
-                                <div class="dropdown" style="display:inline-block; margin-bottom: 5px;">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                        <span id="btnLabel">Hình thức</span>
-                                        <span class="caret" style="margin-left: 5px;"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Đổi sách</a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mua lại</a></li>
-                                    </ul>
-                                    <script>
-                                        $(".dropdown-menu li a").click(function () {
-                                            $(this).parents(".dropdown").find('.btn #btnLabel').text($(this).text());
-                                            $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-
-                                            var type = document.getElementById("btnLabel").innerText;
-                                            if (type.localeCompare("Mua lại") == 0) {
-                                                $("#priceDiv").show();
-                                            } else {
-                                                $("#priceDiv").hide();
-                                            }
-                                        });
-                                    </script>
-                                </div>
-                                <!--Price-->
-                                <div id="priceDiv" style="display:inline-block; margin-bottom: 5px; margin-left:10px;">
-                                    <input type="number" class="form-control" style="display:inline-block; width:150px; margin-right:5px;" placeholder="Số tiền" />
-                                    <span>VNĐ</span>
-                                </div>
-
-                                <!--Description-->
-                                <textarea class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
-
-                                <!--Img-->
-                                <div>
-                                    <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 180px;" />
-                                    <input id="browseImg" type='file' onchange="readURL(this);" style="display:none;" />
-                                    <button class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
-                                    <script>
-                                        function HandleBrowseClick() {
-                                            var fileinput = document.getElementById("browseImg");
-                                            fileinput.click();
-                                        }
-
-                                    </script>
-                                </div>
-
-                                <!--Submit-->
-                                <input id="btnSubmit" type="submit" value="Create" style="display:none;" />
-                            </form>
-                            <script>
-                                $(".modal-body").ready(function () {
-                                    $("#priceDiv").hide();
-                                })
-                            </script>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-primary" onclick="Submit">Đăng</button>
-                            <script>
-                                function Submit() {
-                                    var fileinput = document.getElementById("btnSubmit");
-                                    fileinput.click();
-                                }
-                            </script>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Views/SwapItem/Create.cshtml", new SwapMVC.Models.SwapItem(), new ViewDataDictionary {{"bookID", Model.ID}})
         </div>
     </div>
 </div>
 <div class="swap-area">
-    <h3>Đề xuất</h3>
+    <h3>Đề xuất (@Model.SwapItem.Count)</h3>
     <ul class="rcmd-list">
         @{
             SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
@@ -164,16 +82,23 @@
             <li>
                 <div class="comment-block">
                     <div class="avatar-block">
-                        <img src="img/pages2.jpg" alt="Avatar" class="img-circle" />
+                        @{
+                            string imgUrl = "";
+                            if (@item.Account.Avatar != null)
+                            {
+                                imgUrl = @Url.Content(@item.Account.Avatar);
+                            }
+                        }
+                        <img src="@imgUrl" alt="Avatar" class="img-circle" />
                     </div>
                     <div class="comment-content">
-                        <a href=""><h4>Tên_người_dùng</h4></a>
+                        <a href=""><h4>@item.Account.Fullname</h4></a>
                         <p>
                             <strong style="">@item.ItemTitle</strong>
-                            <a href="" style="margin-left:20px;" data-toggle="modal" data-target="#Modal-SwapCmt"><span class="glyphicon glyphicon-comment"></span> Bình luận (0)</a>
+                            <a href="" style="margin-left:20px;" data-toggle="modal" data-target="#Modal-SwapCmt-@item.ID"><span class="glyphicon glyphicon-comment"></span> Bình luận (@item.Comment.Count)</a>
                         </p>
                         <!-- Modal -->
-                        <div class="modal fade" id="Modal-SwapCmt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="Modal-SwapCmt-@item.ID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog" style="width: 460px;">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -185,31 +110,30 @@
                                             <textarea class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Bình luận..."></textarea>
                                             <input id="btnSubmit" type="submit" value="Đăng" class="btn btn-default" style="display:block;" />
                                         </form>
-                                        <div class="comment-block">
-                                            <div class="avatar-block">
-                                                <img src="img/pages2.jpg" alt="Avatar" class="img-circle" />
+                                        @{
+                                            var commentDB = db.Comment.Where(x => x.SwapItemID == @item.ID).ToList();
+                                        }
+                                        @foreach (var cmt in commentDB)
+                                        {
+                                            <div class="comment-block">
+                                                <div class="avatar-block">
+                                                    <img src="img/pages2.jpg" alt="Avatar" class="img-circle" />
+                                                </div>
+                                                <div class="comment-content">
+                                                    <a href=""><h5>@cmt.Account.Fullname</h5></a>
+                                                    <p>@cmt.Content</p>
+                                                    <h6 style="font-style:italic;">Ngày đăng: @cmt.CommentDate</h6>
+                                                </div>
                                             </div>
-                                            <div class="comment-content">
-                                                <a href=""><h5>Tên_người_dùng</h5></a>
-                                                <p>Nội dung</p>
-                                            </div>
-                                        </div>
-                                        <div class="comment-block">
-                                            <div class="avatar-block">
-                                                <img src="img/pages2.jpg" alt="Avatar" class="img-circle" />
-                                            </div>
-                                            <div class="comment-content">
-                                                <a href=""><h5>Tên_người_dùng</h5></a>
-                                                <p>Nội dung</p>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <ul>
                             <li>
                                 Hình thức: @item.ItemType

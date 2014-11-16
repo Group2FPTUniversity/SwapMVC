@@ -1,100 +1,108 @@
-﻿@model SwapMVC.Models.SwapItem
-
-@{
-    ViewBag.Title = "Create";
+﻿@{
+    Layout = null;
+    ViewBag.Title = "AddSwapItem";
 }
 
-<h2>Create</h2>
+@model SwapMVC.Models.SwapItem
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<div class="modal fade" id="Modal-SwapRcmd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 460px;">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "SwapItem", FormMethod.Post, new { id = "Modal-AddNewBook", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>SwapItem</legend>
+                <fieldset>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Đề xuất đổi</h4>
+                    </div>
+                    <div class="modal-body" style="height:auto; padding-left:30px; width:400px; margin-bottom: 5px;">
+                        @{
+                            //Model.AccID = int.Parse(Session["LogedUserID"].ToString());
+                            //Model.BookID = int.Parse(ViewData["bookID"].ToString());
+                            //Model.ItemStatus = "Đang chờ";
+                            //Model.PostDate = DateTime.Today;
+                        }
+                        <input name="AccID" type="hidden" value="@Session["LogedUserID"].ToString()" />
+                        <input name="BookID" type="hidden" value="@ViewData["bookID"].ToString()" />
+                        <input name="ItemStatus" type="hidden" value="Đang chờ" />
+                        <input name="PostDate" type="hidden" value="@DateTime.Now" />
+                        <!--Title-->
+                        <input name="ItemTitle" id="txtTitle" type="text" class="form-control" style="width:400px; margin-bottom: 5px;" placeholder="Tiêu đề" />
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BookID, "Book")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("BookID", String.Empty)
-            @Html.ValidationMessageFor(model => model.BookID)
-        </div>
+                        <!--Type-->
+                        <div class="dropdown" style="display:inline-block; margin-bottom: 5px;">
+                            <input name="ItemType" id="ItemType" type="hidden" value="" />
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <span id="btnLabel">Hình thức</span>
+                                <span class="caret" style="margin-left: 5px;"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Đổi sách</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mua lại</a></li>
+                            </ul>
+                            <script>
+                                $(".dropdown-menu li a").click(function () {
+                                    $(this).parents(".dropdown").find('.btn #btnLabel').text($(this).text());
+                                    $(this).parents(".dropdown").find('.btn').val($(this).text());
+                                    $(this).parents(".dropdown").find('#ItemType').val($(this).text());
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AccID, "Account")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AccID", String.Empty)
-            @Html.ValidationMessageFor(model => model.AccID)
-        </div>
+                                    var type = document.getElementById("btnLabel").innerText;
+                                    if (type.localeCompare("Mua lại") == 0) {
+                                        $("#priceDiv").show();
+                                    } else {
+                                        $("#priceDiv").hide();
+                                    }
+                                });
+                            </script>
+                        </div>
+                        <!--Price-->
+                        <div id="priceDiv" style="display:inline-block; margin-bottom: 5px; margin-left:10px;">
+                            <input name="Price" type="number" class="form-control" style="display:inline-block; width:150px; margin-right:5px;" placeholder="Số tiền" />
+                            <span>VNĐ</span>
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemType)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemType)
-            @Html.ValidationMessageFor(model => model.ItemType)
-        </div>
+                        <!--Description-->
+                        <textarea name="ItemDcrpt" class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemTitle)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemTitle)
-            @Html.ValidationMessageFor(model => model.ItemTitle)
-        </div>
+                        <!--Img-->
+                        <div>
+                            <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 180px;" />
+                            <input id="browseImg" type='file' onchange="readURL(this);" style="display:none;" />
+                            <button type="button" class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
+                            <script>
+                                function HandleBrowseClick() {
+                                    var fileinput = document.getElementById("browseImg");
+                                    fileinput.click();
+                                }
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemDcrpt)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemDcrpt)
-            @Html.ValidationMessageFor(model => model.ItemDcrpt)
-        </div>
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemImage)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemImage)
-            @Html.ValidationMessageFor(model => model.ItemImage)
-        </div>
+                                        reader.onload = function (e) {
+                                            $('#itemImg').attr('src', e.target.result)
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                            </script>
+                        </div>
+                        <script>
+                            $(".modal-body").ready(function () {
+                                $("#priceDiv").hide();
+                            })
+                        </script>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Price)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        <button type="submit" value="Create" class="btn btn-primary" onclick="Submit">Đăng</button>
+                    </div>
+                </fieldset>
+            }
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemStatus)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ItemStatus)
-            @Html.ValidationMessageFor(model => model.ItemStatus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostDate)
-            @Html.ValidationMessageFor(model => model.PostDate)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

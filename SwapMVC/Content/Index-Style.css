@@ -70,7 +70,7 @@ body{
     font-size: 16px;
     color: white;
     margin: 0;
-    border-radius: 8px 8px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 
 .categories {
@@ -179,28 +179,27 @@ body{
     display: block;
     width: 900px;
     height: 330px;
-    padding: 5px;
+    padding: 0;
     margin: 0;
     background-color: #fbfbfb;
     color: #45629c;
-    border-style:solid;
-    border-width:1px;
-    border-color:rgb(229, 229, 229);
 
 }
 
 .book-intro {
     display: inline-block;
     margin: 0;
-    padding: 0;
-    width: 900px;
+    padding: 5px;
+    width: inherit;
     height: inherit;
+    background-color:whites;
 }
 
     .book-intro .book-img {
         display: inline-block;
-        width: auto;
-        height: 310px;
+        vertical-align:central;
+        width: 240px;
+        height: 320px;
         margin: 0;
         margin-right: 5px;
         padding: 0;
@@ -256,8 +255,9 @@ body{
         overflow-wrap: break-word;
         width: 130px;
         height: auto;
-        margin: 0;
+        margin: 10px;
         padding: 0;
+
     }
 
 .swap-area {
@@ -312,7 +312,7 @@ body{
 .accMenuList {
     list-style: none;
     margin: 0;
-    margin-top: 45px;
+    margin-top: 15px;
     padding: 0;
     text-align: left;
 }
@@ -320,7 +320,8 @@ body{
     .accMenuList li {
         padding-top: 2px;
         padding-bottom: 2px;
-        padding-left: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
         .accMenuList li:hover {
@@ -328,16 +329,17 @@ body{
         }
 
 .topic-block .book-list {
-    width: inherit;
-    height: 200px;
     display: block;
+    float: none;
+    width: inherit;
+    height: auto;    
     margin: 0;
     margin-top: 5px;
+    padding: 7px;
 }
 
 .book-list li {
-    display: inline;
-    float: left;
+    display: inline-block;    
     width: 190px;
     height: auto;
     margin: 0;
@@ -346,7 +348,7 @@ body{
     margin-right: 10px;
     padding: 0;
     overflow: visible;
-    background-color: whitesmoke;
+    background-color: transparent;
     text-align: center;
 }
 

@@ -1,0 +1,62 @@
+﻿@model SwapMVC.Models.Comment
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Comment</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SwapItemID, "SwapItem")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SwapItemID", String.Empty)
+            @Html.ValidationMessageFor(model => model.SwapItemID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AccID, "Account")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AccID", String.Empty)
+            @Html.ValidationMessageFor(model => model.AccID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CommentDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CommentDate)
+            @Html.ValidationMessageFor(model => model.CommentDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

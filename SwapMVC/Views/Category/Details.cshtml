@@ -49,19 +49,19 @@
 
     </section>
 }
-<div class="topic-block">
-    <h1 style="border-bottom:solid 1px whitesmoke;">
-        @{
-           
-            var e = Model.GetType();
-              SwapMVC.Models.SwapDBEntities dbCategory2 = new SwapMVC.Models.SwapDBEntities();
-              var cateName = dbCategory2.Category.Find(ViewData["cateID"]);
-        }
-        @cateName.Name
-    
-      
+<div class="topic-block" style="padding:10px; padding-left:20px; padding-right:20px;" >
+    <h1 style=" border-bottom:solid 1px whitesmoke;">
+    @{
+
+        var e = Model.GetType();
+        SwapMVC.Models.SwapDBEntities dbCategory2 = new SwapMVC.Models.SwapDBEntities();
+        var cateName = dbCategory2.Category.Find(ViewData["cateID"]);
+    }
+    @cateName.Name
+
+
     </h1>
-    <!--grid-->    
+    <!--grid-->
     <ul class="book-list">
         @foreach (var item in Model)
         {

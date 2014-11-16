@@ -1,140 +1,102 @@
-﻿@model SwapMVC.Models.Book
-
-@{
-    ViewBag.Title = "Create";
+﻿@{
+    Layout = null;
+    ViewBag.Title = "CreateBook";
 }
 
-<h2>Create</h2>
+@model SwapMVC.Models.Book
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Book</legend>
+<div class="modal fade" id="Modal-AddNewBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 460px;">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "Book", FormMethod.Post, new { id = "Modal-AddNewBook", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AccID, "Account")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AccID", String.Empty)
-            @Html.ValidationMessageFor(model => model.AccID)
-        </div>
+                <fieldset>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Thêm sách mới</h4>
+                    </div>
+                    <div class="modal-body" style="height:auto; padding-left:30px; width:400px; margin-bottom: 5px;">
+                        <input name="AccID" type="hidden" value="@Session["LogedUserID"].ToString()"  />
+                        <input name="BookStatus" type="hidden" value="Đang thương lượng" />
+                        <input name="PostDate" type="hidden" value="@DateTime.Now" />
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Title)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Title)
-            @Html.ValidationMessageFor(model => model.Title)
-        </div>
+                        <!--Title-->
+                        <input id="txtTitle" name="Title" type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Tiêu đề" />
+                        <input type="text" name="Author" class="form-control" style="display:inline-block; width:230px; margin-bottom:5px; margin-right:5px;" placeholder="Tác giả" />
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Author)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Author)
-            @Html.ValidationMessageFor(model => model.Author)
-        </div>
+                        <!--Categories-->
+                        <div class="dropdown" style="display:inline-block;">
+                            <input name="CategoryID" id="CategoryID" type="hidden" value="" />
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                <span id="btnLabel">Danh mục</span>
+                                <span class="caret" style="margin-left: 5px;"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                @{
+                                    SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+                                    var cate = db.Category.ToList();
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CategoryID, "Category")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("CategoryID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CategoryID)
-        </div>
+                                    foreach (var item in cate)
+                                    {
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-value="@item.ID.ToString()">@item.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                            <script>
+                                $(".dropdown-menu li a").click(function () {
+                                    $(this).parents(".dropdown").find('.btn #btnLabel').text($(this).text());
+                                    $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+                                    $(this).parents(".dropdown").find('#CategoryID').val($(this).data('value'));
+                                });
+                            </script>
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Publisher)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Publisher)
-            @Html.ValidationMessageFor(model => model.Publisher)
-        </div>
+                        <input type="text" name="Publisher" class="form-control" style="display:inline-block; width:230px; margin-bottom:5px; margin-right:5px;" placeholder="Nhà xuất bản" />
+                        <input type="number" name="PblYear" class="form-control" style="display:inline-block; width:150px; margin-bottom:10px; margin-right:5px;" placeholder="Năm xuất bản" />
+                        <input type="number" name="Price" class="form-control" style="width:230px; margin-bottom:10px; margin-right:5px;" placeholder="Giá bìa" />
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PblYear)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PblYear)
-            @Html.ValidationMessageFor(model => model.PblYear)
-        </div>
+                        <!--Description-->
+                        <textarea name="Descrptn" class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Descrptn)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Descrptn)
-            @Html.ValidationMessageFor(model => model.Descrptn)
-        </div>
+                        <input name="City" type="text" class="form-control" style="display:inline-block; width:190px; margin-bottom:5px; margin-right:5px;" placeholder="Địa điểm" />
+                        <input name="DueDate" type="text" class="form-control" style="display:inline-block; width:190px; margin-bottom:5px; margin-right:5px;" placeholder="Hạn cuối" />
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Price)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
+                        <!--Img-->
+                        <div>
+                            <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 180px;" />
+                            <input id="browseImg" name="file" type='file' onchange="readURL(this);" style="display:none;" />
+                            <button type="button" class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
+                            <script>
+                                function HandleBrowseClick() {
+                                    var fileinput = document.getElementById("browseImg");
+                                    fileinput.click();
+                                }
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BookImage)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.BookImage)
-            @Html.ValidationMessageFor(model => model.BookImage)
-        </div>
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BookStatus)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.BookStatus)
-            @Html.ValidationMessageFor(model => model.BookStatus)
-        </div>
+                                        reader.onload = function (e) {
+                                            $('#itemImg').attr('src', e.target.result)
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                            </script>
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DetailAddr)
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        <button type="submit" value="Create" class="btn btn-primary">Đăng</button>
+                    </div>
+                </fieldset>
+            }
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DetailAddr)
-            @Html.ValidationMessageFor(model => model.DetailAddr)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostDate)
-            @Html.ValidationMessageFor(model => model.PostDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DueDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DueDate)
-            @Html.ValidationMessageFor(model => model.DueDate)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

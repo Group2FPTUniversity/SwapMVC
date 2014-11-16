@@ -81,13 +81,20 @@ namespace SwapMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Account account)
+        public ActionResult Create(Account account, HttpPostedFileBase file)
         {
+            if (file != null)
+            {
+                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/User/") + account.ID.ToString() + file.FileName);
+
+                account.Avatar = "~/UserImg/User/" + account.ID.ToString() + file.FileName;
+
+            }
             if (ModelState.IsValid)
             {
                 db.Account.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("~/Home");
+                return RedirectToAction("Index");
             }
 
             return View(account);
