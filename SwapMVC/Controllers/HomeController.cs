@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SwapMVC.Models;
 
 namespace SwapMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private SwapDBEntities db = new SwapDBEntities();
         public ActionResult Portal()
         {
             ViewBag.Message = "Portal.";
@@ -16,11 +20,17 @@ namespace SwapMVC.Controllers
         }
         public ActionResult Home()
         {
-            ViewBag.Message = "Home.";
-
             return View();
+        
         }
-
+        public ActionResult RecentBook(int page)
+        {
+            ViewBag.Message = "Home.";
+            int skippedPage = (page - 1) * 3;
+            var book = db.Book.Include(b => b.Account).Include(b => b.Category);
+            List<Book> list = book.ToList().OrderBy(o => o.PostDate).Skip(skippedPage).Take(3).ToList();
+            return View(list);
+        }
         
         public ActionResult Index()
         {

@@ -6,6 +6,31 @@
 
 
 
+@*<script>
+    $(document).on("click", "#btnLogin", function () {
+        if ($("#txtEmail").val().trim().length > 0) {
+            $("#invalid").text("");
+            $.post("/User/Login",
+                    {
+                        email: $("#txtEmail").val(),
+                        password: $("#txtPass").val(),
+                    },
+                    function (data) {
+
+                        $("#invalid").html(data);
+                    });
+        } else {
+            $("#invalid").text("Please enter email");
+        }
+    });
+
+</script>*@
+
+
+
+
+
+
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width:430px;margin-top:85px">
@@ -26,13 +51,13 @@
 
                         <div class="input-group">
                             <span class="input-group-addon">></span>
-                            <input type="text" class="form-control" name="Email" placeholder="Email">
+                            <input id ="txtEmail" type="text" class="form-control" name="Email" placeholder="Email">
                             @Html.ValidationMessageFor(a => a.Email)
                         </div>
 
                         <div class="input-group">
                             <span class="input-group-addon">></span>
-                            <input type="password" class="form-control" name="Passwd" placeholder="Mật khẩu">
+                            <input id="txtPass" type="password" class="form-control" name="Passwd" placeholder="Mật khẩu">
                             @Html.ValidationMessageFor(a => a.Passwd)
                         </div>
 
@@ -40,11 +65,12 @@
                             <input type="checkbox"> <span> Ghi nhớ mật khẩu</span>
                             <span style="float:right"><a id="sthing" href="" data-toggle="modal" data-target="#registerModal">Đăng ký |</a><a href=""> Quên mật khẩu?</a></span>
                         </div>
+                        <p id="invalid" style="color: red;"></p>
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            <button id="btnLogin" type="submit" class="btn btn-primary">Đăng nhập</button>
                         </div>
 
                     </fieldset>

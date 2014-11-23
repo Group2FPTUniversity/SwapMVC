@@ -4,6 +4,7 @@
     <title></title>
     <link href="~/Content/Index-Style.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Portal-style.css" rel="stylesheet" />
     <!-- Optional: Include the jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
@@ -17,6 +18,9 @@
                 interval: 2000
             });
         });
+ 
+   
+       
     </script>
 </head>
 <body style=" background-color: whitesmoke">
@@ -24,7 +28,7 @@
     <div class="header">
         <div class="container">
             <div style="float:left">
-                <ul id="nav-list">
+                <ul class="nav-list">
                     <li>
                         <a href="~/Home"><img src="~/Images/logo - whitesmoke.png" alt="" class="img-rounded"></a>
                     </li>
@@ -48,24 +52,24 @@
 
                 </ul>
             </div>
-            <div style="margin-left:50px;">
-                <ul id="nav-list">
-                    <li>
-                        <form class="navbar-form navbar-left" style="float:none; margin:0; margin-top:4px; vertical-align:central;">
-                            <div class="input-group input-group-sm">
-                                <input type="text" placeholder="Tìm kiếm" class="form-control">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </li>
+            <div>
+
+                <form class="navbar-form navbar-left" style="float:none; margin:0; margin-top:4px; vertical-align:central;">
+                    <div class="input-group input-group-sm">
+                        <input type="text" placeholder="Tìm kiếm" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+                <ul class="nav-list">
                     @{
                         if (@Session["LogedUserFullname"] == null)
                         {
-                            <li><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
+                            <li style="padding:30px"><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
                             @Html.Partial("~/Views/User/Login.cshtml", new SwapMVC.Models.Account())
                             <li> / <a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
                             @Html.Partial("~/Views/User/Create.cshtml", new SwapMVC.Models.Account())
@@ -74,12 +78,12 @@
                         {
                             <li>
                                 <a href="~/Book/MyBook/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
-                                <a href="" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
+                                <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
                             </li>
                         }
                     }
                 </ul>
-            </div>
+            
         </div>
     </div>
     <!--Main layout-->

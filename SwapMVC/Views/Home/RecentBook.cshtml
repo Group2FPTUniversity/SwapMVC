@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SwapMVC.Models.Book>
+
+@{
+    ViewBag.Title = "RecentBook";
+}
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+
+
+    <li>
+        <a href="~/Book/Details/@item.ID">
+            @{
+    string bookImgUrl = "";
+    if (@item.BookImage != null)
+    {
+        bookImgUrl = @Url.Content(@item.BookImage);
+    }
+            }
+            <img class="img-thumbnail" id="links" src="@bookImgUrl" />
+
+            <h5>@item.Title</h5>
+            <h6>@item.Author</h6>
+        </a>
+    </li>
+
+
+}

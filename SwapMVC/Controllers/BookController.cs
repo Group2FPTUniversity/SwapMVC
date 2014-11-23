@@ -23,6 +23,14 @@ namespace SwapMVC.Controllers
             return View(list);
         }
 
+        public ActionResult RecentBook(int id)
+        {
+            int skippedPage = (id - 1) * 10;
+            var book = db.Book.Include(b => b.Account).Include(b => b.Category);
+            List<Book> list = book.ToList().OrderBy(o => o.PostDate).Skip(skippedPage).Take(10).ToList();
+            return View(list);
+        }
+
         public ActionResult Index()
         {
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
@@ -41,6 +49,12 @@ namespace SwapMVC.Controllers
                 return HttpNotFound();
             }
             return View(book);
+        }
+
+        public ActionResult Approve()
+        {
+            var list = db.Book.Where(bookID => bookID.BookStatus == "Pending").ToList();
+            return View(list);
         }
 
         //

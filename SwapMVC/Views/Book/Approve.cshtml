@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SwapMVC.Models.Book>
+
+@{
+    ViewBag.Title = "Aprapprove";
+}
+
+<h2>Aprapprove</h2>
+
+@foreach (var item in Model)
+{
+
+    <div style="margin-top:10px">
+
+        <div class="intro-block-approve">
+            <div class="book-intro-approve">
+                <div class="book-img-approve">
+                    @{
+    string bookImgUrl = "";
+    if (item.BookImage != null)
+    {
+        bookImgUrl = @Url.Content(@item.BookImage);
+    }
+                    }
+                    <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" />
+                </div>
+                <div class="book-detail-approve">
+                    <h3 style="margin-top:0px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                        @item.Title
+                    </h3>
+                    <ul style="display: inline-block; width:300px;">
+                        <li>
+                            Tác giả: @item.Author
+                        </li>
+                        <li>
+                            Nhà xuất bản: @item.Publisher
+                        </li>
+                        <li>
+                            Năm xuất bản: @item.PblYear
+                        </li>
+                        <li>
+                            Giá bìa: @item.Price
+                        </li>
+                        <li>
+                            Địa điểm: @item.DetailAddr (@item.City)
+                        </li>
+                    </ul>
+                    <div style="display: inline-block; width:300px; vertical-align: top;">
+                        <ul>
+
+                            
+                            <li>
+                                Trạng thái: @item.BookStatus
+                            </li>
+                            <li>Mô tả: @item.Descrptn</li>
+                            
+                        </ul>
+                        
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}

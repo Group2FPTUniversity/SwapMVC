@@ -26,6 +26,7 @@
     </script>
 </head>
 
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -55,9 +56,10 @@
                             {
                                 <li> 
                                     Chào <a href="~/Book/MyBook/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString()</a>
-                                    <a href="" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
+                                    <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
                                 </li>
                             }
+                           
                         }
                     </ol>
                 </div>

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using SwapMVC.Models;
 
+
 namespace SwapMVC.Controllers
 {
     public class UserController : Controller
@@ -30,6 +31,8 @@ namespace SwapMVC.Controllers
         [HttpPost]
         public ActionResult Login(Account u)
         {
+
+         
             // this action is for handle post (login)
             if (ModelState.IsValid) // this is check validity
             {
@@ -37,17 +40,23 @@ namespace SwapMVC.Controllers
                 var v = db.Account.Where(a => a.Email.Equals(u.Email) && a.Passwd.Equals(u.Passwd)).FirstOrDefault();
                     if (v != null)
                     {
+                      
                         Session["LogedUserID"] = v.ID.ToString();
                         Session["LogedUserFullname"] = v.Fullname.ToString();
-                        return Redirect("~/Home");
+                        return Redirect("~/Home/Home");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "The user name or password provided is incorrect.!");
+                        return Redirect("~/Home/");
                     }
                 }
-            
-            return View(u);
+
+            return Redirect("~/Home/");
+        }
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
       

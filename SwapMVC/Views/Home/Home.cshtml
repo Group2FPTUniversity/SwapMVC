@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<SwapMVC.Models.Book>
+
+@{
     ViewBag.Title = "Index";
 }
 
@@ -90,6 +92,75 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
     </a>
 </div>
+@{
+    SwapMVC.Models.SwapDBEntities newBook = new SwapMVC.Models.SwapDBEntities();
+     var books = newBook.Book.ToList();
+     int count = 0;
+     foreach(var book in books){
+         count++;
+     }
+}
+<script>
+    $(document).ready(function () {
+        var num = $("#num").text();
+        var total = $("#total").text() / 10 + 1;
+        $("#result").text(total -num);
+        $("#total").hide();
+        
+    });
+
+
+    $("#num").text("1");
+    var size_ini = 1;
+    function increase_n(size) {
+        var size_increase = ++size_ini;
+        $("#num").html("<span>" + size_increase + "</span>")
+    }
+    $.post("/Book/RecentBook",
+          {
+              id: 1
+          },
+            function (data) {
+
+                $(".grid-row").html(data);
+            })
+    $(document).on("click", "#btnNext", function () {
+        $("#num").hide();
+        $.post("/Book/RecentBook",
+             {
+                 id: $("#num").text()
+             },
+            function (data) {
+
+                $(".grid-row").html(data);
+            })
+        $(".grid-row").hide().fadeIn(700);
+
+    });
+    function decrease_n(size) {
+        var size_increase = --size_ini;
+        $("#num").html("<span>" + size_increase + "</span>")
+    }
+
+    $(document).on("click", "#btnBack", function () {
+        $("#num").hide();
+        $.post("/Book/RecentBook",
+             {
+                 id: $("#num").text()
+             },
+            function (data) {
+
+                $(".grid-row").html(data);
+            })
+        $(".grid-row").hide().fadeIn(700);
+    });
+    
+    
+ 
+
+</script>
+
+
 
 
 <div class="topic-block">
@@ -97,46 +168,18 @@
         Sách mới
     </div>
     <!--grid-->
-    <div class="topic">
-        <script>
-            $('#links').hover(function () {
-
-            });
-        </script>
-
-        <ul class="grid-row">
-            @{var i = 0;}
-
-            @{
-                SwapMVC.Models.SwapDBEntities dbBook = new SwapMVC.Models.SwapDBEntities();
-                var book = dbBook.Book.ToList().OrderByDescending(o => o.PostDate).Take(10).ToList() ;
-            }
-
-            @foreach (var item in book)
-            {
-
-               
-                    <li>
-                        <a href="~/Book/Details/@item.ID">
-                            @{
-                                string bookImgUrl = "";
-                                if (@item.BookImage != null)
-                                {
-                                    bookImgUrl = @Url.Content(@item.BookImage);
-                                }
-                            }
-                            <img class="img-thumbnail" id="links" src="@bookImgUrl"/>
-
-                            <h5>@item.Title</h5>
-                            <h6>@item.Author</h6>
-                        </a>
-                    </li>
-
-                
-            }
-
-        </ul>
-
+    <div class="topic">        
+                <ul class="grid-row"></ul> 
+        
+        <p id="num"></p>
+        <p id="total">@count</p>
+        <p id="result"></p>
     </div>
+    
+
 </div>
 
+<div style="display:block; margin-top:5px; padding-left:400px">
+    <button id="btnBack" onclick="decrease_n(1)" type="button" class="btn btn-primary">Back</button>
+    <button id="btnNext" onclick="increase_n(1)" type="button" class="btn btn-primary">Next</button>
+</div>
