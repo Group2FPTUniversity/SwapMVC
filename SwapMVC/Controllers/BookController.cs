@@ -25,9 +25,9 @@ namespace SwapMVC.Controllers
 
         public ActionResult RecentBook(int id)
         {
-            int skippedPage = (id - 1) * 10;
+            int skippedPage = id * 3;
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            List<Book> list = book.ToList().OrderBy(o => o.PostDate).Skip(skippedPage).Take(10).ToList();
+            List<Book> list = book.ToList().OrderByDescending(o => o.PostDate).Take(skippedPage).ToList();
             return View(list);
         }
 
@@ -74,11 +74,13 @@ namespace SwapMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Book book, HttpPostedFileBase file)
         {
+            Guid guid = Guid.NewGuid();
+            String id = guid.ToString();
             if (file != null)
             {
-                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/Book/") + file.FileName);
+                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/Book/")+id + file.FileName);
 
-                book.BookImage = "~/UserImg/Book/" + file.FileName;
+                book.BookImage = "~/UserImg/Book/"+id + file.FileName;
 
             }
             if (ModelState.IsValid)

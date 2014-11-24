@@ -29,7 +29,7 @@ namespace SwapMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Account u)
+        public ActionResult Login(String email, String password)
         {
 
          
@@ -37,17 +37,17 @@ namespace SwapMVC.Controllers
             if (ModelState.IsValid) // this is check validity
             {
 
-                var v = db.Account.Where(a => a.Email.Equals(u.Email) && a.Passwd.Equals(u.Passwd)).FirstOrDefault();
+                var v = db.Account.Where(a => a.Email.Equals(email) && a.Passwd.Equals(password)).FirstOrDefault();
                     if (v != null)
                     {
                       
                         Session["LogedUserID"] = v.ID.ToString();
                         Session["LogedUserFullname"] = v.Fullname.ToString();
-                        return Redirect("~/Home/Home");
+                        return Json("true");
                     }
                     else
                     {
-                        return Redirect("~/Home/");
+                        return Json("false");
                     }
                 }
 
@@ -104,7 +104,7 @@ namespace SwapMVC.Controllers
                 db.Account.Add(account);
                 db.SaveChanges();
 
-                return Login(account);
+                return Login(account.Email, account.Passwd);
             }
 
             return View(account);

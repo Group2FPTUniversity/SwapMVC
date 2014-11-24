@@ -6,25 +6,32 @@
 
 
 
-@*<script>
+<script>
     $(document).on("click", "#btnLogin", function () {
         if ($("#txtEmail").val().trim().length > 0) {
             $("#invalid").text("");
+           // alert($("#txtPass").val());
             $.post("/User/Login",
                     {
                         email: $("#txtEmail").val(),
                         password: $("#txtPass").val(),
                     },
                     function (data) {
-
-                        $("#invalid").html(data);
+                        if (data == "false")
+                        {
+                            $("#invalid").text("Username and password is not correct!");
+                        }
+                        else
+                        {
+                            window.location.replace("Home/Home");
+                        }
                     });
         } else {
             $("#invalid").text("Please enter email");
         }
     });
 
-</script>*@
+</script>
 
 
 
@@ -48,7 +55,7 @@
                     @Html.ValidationSummary(true)
 
                     <fieldset>
-
+                        <p id="invalid" style="color: red;"></p>
                         <div class="input-group">
                             <span class="input-group-addon">></span>
                             <input id ="txtEmail" type="text" class="form-control" name="Email" placeholder="Email">
@@ -65,12 +72,11 @@
                             <input type="checkbox"> <span> Ghi nhớ mật khẩu</span>
                             <span style="float:right"><a id="sthing" href="" data-toggle="modal" data-target="#registerModal">Đăng ký |</a><a href=""> Quên mật khẩu?</a></span>
                         </div>
-                        <p id="invalid" style="color: red;"></p>
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            <button id="btnLogin" type="submit" class="btn btn-primary">Đăng nhập</button>
+                            <button id="btnLogin" type="button" class="btn btn-primary">Đăng nhập</button>
                         </div>
 
                     </fieldset>
