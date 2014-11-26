@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SwapMVC.Models.Book>
 
 @{
-    ViewBag.Title = "Swap";
+    ViewBag.Title = "Index";
 }
 
 @section Leftside {
@@ -94,28 +94,29 @@
 </div>
 @{
     SwapMVC.Models.SwapDBEntities newBook = new SwapMVC.Models.SwapDBEntities();
-     var books = newBook.Book.ToList();
-     int count = 0;
-     foreach(var book in books){
-         count++;
-     }
+    var books = newBook.Book.ToList();
+    int count = books.Count;
 }
 <script>
-    $(document).ready(function () {
-        var num = $("#num").text();
-        var total = $("#total").text() / 10 + 1;
-        $("#result").text(total -num);
-        $("#total").hide();
-        
-    });
+
 
 
     $("#num").text("1");
     var size_ini = 1;
     function increase_n(size) {
         var size_increase = ++size_ini;
-        $("#num").html("<span>" + size_increase + "</span>")
+        $("#num").html("<span>" + size_increase + "</span>");
     }
+
+    $(document).ready(function () {
+        $("#btnBack").hide();
+        if ($("#num").text() * 10 >= $("#total").text()) {
+            $("#btnNext").hide();
+        }
+        $("#num").hide();
+        $("#total").hide();
+    });
+
     $.post("/Book/RecentBook",
           {
               id: 1
@@ -125,16 +126,23 @@
                 $(".grid-row").html(data);
             })
     $(document).on("click", "#btnNext", function () {
-        $("#num").hide();
+
+        if ($("#num").text() * 10 >= $("#total").text()) {
+            $("#btnNext").hide();
+        }
+        if ($("#num").text() > 0) {
+            $("#btnBack").show();
+        }
+
         $.post("/Book/RecentBook",
              {
                  id: $("#num").text()
              },
             function (data) {
 
-                $(".grid-row").html(data);
+                $(".grid-row").html(data).hide().fadeIn(500);
             })
-        $(".grid-row").hide().fadeIn(700);
+
 
     });
     function decrease_n(size) {
@@ -142,8 +150,17 @@
         $("#num").html("<span>" + size_increase + "</span>")
     }
 
+
     $(document).on("click", "#btnBack", function () {
-        $("#num").hide();
+        if ($("#num").text() < 2) {
+            $("#btnBack").hide();
+        }
+
+        if ($("#num").text() * 10 < $("#total").text()) {
+            $("#btnNext").show();
+        }
+
+        //  $("#num").hide();
         $.post("/Book/RecentBook",
              {
                  id: $("#num").text()
@@ -152,11 +169,12 @@
 
                 $(".grid-row").html(data);
             })
-        $(".grid-row").hide().fadeIn(700);
+
+
     });
-    
-    
- 
+
+
+
 
 </script>
 
@@ -168,14 +186,13 @@
         Sách mới
     </div>
     <!--grid-->
-    <div class="topic">        
-                <ul class="grid-row"></ul> 
-        
+    <div class="topic">
+        <ul class="grid-row"></ul>
+        <br />
         <p id="num"></p>
         <p id="total">@count</p>
-        <p id="result"></p>
     </div>
-    
+
 
 </div>
 

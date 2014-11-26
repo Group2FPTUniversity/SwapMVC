@@ -6,8 +6,40 @@
 
 <h2>Aprapprove</h2>
 
+
+@{
+    int count = 1;
+
+}
 @foreach (var item in Model)
 {
+    int denID = count + Model.ToList().Count + 1;
+    ++count;
+    <script>
+        $(document).on("click", "#@count", function () {
+            $.post("/Book/Approve",
+                    {
+                        bookID: @item.ID,
+                        isApprove: "true",
+                    },
+                    function (data) {
+                        window.location.replace("Approve");
+                    });
+
+        });
+        $(document).on("click", "#@denID", function () {
+            $.post("/Book/Approve",
+                    {
+                        bookID: @item.ID,
+                        isApprove: "false",
+                    },
+                    function (data) {
+                        window.location.replace("Approve");
+                    });
+
+        });
+
+    </script>
 
     <div style="margin-top:10px">
 
@@ -47,15 +79,20 @@
                     <div style="display: inline-block; width:300px; vertical-align: top;">
                         <ul>
 
-                            
+
                             <li>
                                 Trạng thái: @item.BookStatus
                             </li>
                             <li>Mô tả: @item.Descrptn</li>
-                            
+
                         </ul>
-                        
+                        <div style="display: inline-block; width:50px; vertical-align: top;">
+                            <button id="@count" type="button" class="btn btn-primary">Approve</button>
+                            <button id="@denID" type="button" class="btn btn-danger">Deny</button>
+                        </div>
                     </div>
+
+
 
 
 

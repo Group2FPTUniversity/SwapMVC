@@ -25,9 +25,9 @@ namespace SwapMVC.Controllers
 
         public ActionResult RecentBook(int id)
         {
-            int skippedPage = id * 3;
+            int skippedPage = (id - 1) * 10;
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            List<Book> list = book.ToList().OrderByDescending(o => o.PostDate).Take(skippedPage).ToList();
+            List<Book> list = book.ToList().OrderByDescending(o => o.PostDate).Skip(skippedPage).Take(10).ToList();
             return View(list);
         }
 
@@ -54,6 +54,27 @@ namespace SwapMVC.Controllers
         public ActionResult Approve()
         {
             var list = db.Book.Where(bookID => bookID.BookStatus == "Pending").ToList();
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult Approve(int bookID, String isApprove)
+        {
+            Book book = db.Book.Find(bookID);
+            if (book != null)
+            {
+                if (isApprove.Equals("true"))
+                {
+                    book.BookStatus = "Approved";
+                }
+                else
+                {
+                    book.BookStatus = "Denied";
+                }
+
+                db.Entry(book).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            var list = db.Book.Where(b => b.BookStatus == "Pending").ToList();
             return View(list);
         }
 

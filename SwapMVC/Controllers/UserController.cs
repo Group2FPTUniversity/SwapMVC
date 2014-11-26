@@ -96,18 +96,26 @@ namespace SwapMVC.Controllers
             {
                 file.SaveAs(HttpContext.Server.MapPath("~/UserImg/User/") + file.FileName);
 
-                account.Avatar = "~/UserImg/User/"  + file.FileName;
+                account.Avatar = "~/UserImg/User/" + file.FileName;
 
             }
             if (ModelState.IsValid)
             {
                 db.Account.Add(account);
                 db.SaveChanges();
-
-                return Login(account.Email, account.Passwd);
             }
 
-            return View(account);
+            return Redirect("~/Home/");
+        }
+
+        public ActionResult CheckEmail(String email)
+        {
+            var account = db.Account.Where(acc => acc.Email == email).SingleOrDefault();
+            if (account == null)
+            {
+                return Json("false");
+            }
+            return Json("true");
         }
 
         //

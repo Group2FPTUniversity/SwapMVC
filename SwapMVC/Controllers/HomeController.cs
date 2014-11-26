@@ -21,17 +21,17 @@ namespace SwapMVC.Controllers
         public ActionResult Home()
         {
             return View();
-        
+
         }
         public ActionResult RecentBook(int page)
         {
             ViewBag.Message = "Home.";
-            int skippedPage = (page - 1) * 3;
+            int skippedPage = (page - 1) * 10;
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            List<Book> list = book.ToList().OrderBy(o => o.PostDate).Skip(skippedPage).Take(3).ToList();
+            List<Book> list = book.ToList().OrderBy(o => o.PostDate).Skip(skippedPage).Take(10).ToList();
             return View(list);
         }
-        
+
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
