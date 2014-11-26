@@ -138,7 +138,8 @@ namespace SwapMVC.Controllers
             {
                 db.Entry(account).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                Session["LogedUserFullname"] = account.Fullname.ToString();
+                return RedirectToAction("Edit/" + account.ID);
             }
             return View(account);
         }

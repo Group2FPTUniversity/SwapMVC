@@ -19,21 +19,19 @@
                         <h4 class="modal-title" id="myModalLabel">Đề xuất đổi</h4>
                     </div>
                     <div class="modal-body" style="height:auto; padding-left:30px; width:400px; margin-bottom: 5px;">
-                        @{
-                            //Model.AccID = int.Parse(Session["LogedUserID"].ToString());
-                            //Model.BookID = int.Parse(ViewData["bookID"].ToString());
-                            //Model.ItemStatus = "Đang chờ";
-                            //Model.PostDate = DateTime.Today;
-                        }
+                        
                         <input name="AccID" type="hidden" value="@Session["LogedUserID"].ToString()" />
                         <input name="BookID" type="hidden" value="@ViewData["bookID"].ToString()" />
                         <input name="ItemStatus" type="hidden" value="Đang chờ" />
                         <input name="PostDate" type="hidden" value="@DateTime.Now" />
                         <!--Title-->
-                        <input name="ItemTitle" id="txtTitle" type="text" class="form-control" style="width:400px; margin-bottom: 5px;" placeholder="Tiêu đề" />
+                        <p id="invalidTitle" style="color: red; font-size:14px; margin:0; margin-top:3px;"></p>
+                        <input name="ItemTitle" id="ItemTitle" type="text" class="form-control" style="width:400px; margin-bottom: 5px;" placeholder="Tiêu đề" />
 
                         <!--Type-->
+                        <p id="invalidItemType" style="color: red; font-size:14px; margin:0; margin-top:10px;"></p>
                         <div class="dropdown" style="display:inline-block; margin-bottom: 5px;">
+                            
                             <input name="ItemType" id="ItemType" type="hidden" value="" />
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                 <span id="btnLabel">Hình thức</span>
@@ -65,7 +63,8 @@
                         </div>
 
                         <!--Description-->
-                        <textarea name="ItemDcrpt" class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
+                        <p id="invalidItemDcrpt" style="color: red; font-size:14px; margin:0; margin-top:3px;"></p>
+                        <textarea name="ItemDcrpt" id="ItemDcrpt" class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
 
                         <!--Img-->
                         <div>
@@ -99,8 +98,41 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                        <button type="submit" value="Create" class="btn btn-primary" onclick="Submit">Đăng</button>
+                        <button type="button" id="btnCreate" class="btn btn-primary" >Đăng</button>
+                        <button type="submit" id="btnSubmit" value="Create" style="display:none;"></button>
                     </div>
+
+                    <script>
+                        
+                        $(document).on("click", "#btnCreate", function () {
+                            var valid = new Boolean(true);
+                            
+                            if ($("#ItemTitle").val().trim().length == 0) {
+                                $("#invalidTitle").text("Vui lòng nhập tiêu đề.");
+                                valid = false;
+                            } else {
+                                $("#invalidTitle").text("");
+                            }
+                            if ($("#ItemType").val().trim().length == 0) {
+                                $("#invalidItemType").text("Vui lòng chọn 'Đổi sách' hoặc 'Mua lại'.");
+                                valid = false;
+                            } else {
+                                $("#invalidItemType").text("");
+                            }
+                            if ($("#ItemDcrpt").val().trim().length == 0) {
+                                $("#invalidItemDcrpt").text("Vui lòng nhập nội dung.");
+                                valid = false;
+                            } else {
+                                $("#invalidItemDcrpt").text("");
+                            }
+
+                            if (valid) {
+                                $("#btnSubmit").click();
+                            }
+                        });
+
+                    </script>
+
                 </fieldset>
             }
         </div>

@@ -1,10 +1,13 @@
 ﻿@model SwapMVC.Models.Book
 
 @{
-    ViewBag.Title = "Đổi sách";
+    ViewBag.Title = @Model.Title;
 }
 
 @section Leftside{
+    @{
+        var user = Model.Account;
+    }
     <div class="info-block">
         <div class="swapper-intro">
             <h5>Được đăng bởi:</h5>
@@ -12,15 +15,15 @@
                 <img src="" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
             </div>
             <div class="swapper-detail">
-                <a href="">@Model.Account.Fullname</a>
+                <a href="~/Book/MyBook/@user.ID.ToString()">@user.Fullname</a>
                 <ul style="margin:0; padding:0; padding-left: 10px; list-style:none;">
                     <li>
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        @Model.Account.City
+                        @user.City
                     </li>
                     <li>
                         <span class="glyphicon glyphicon-phone-alt"></span>
-                        @Model.Account.Phone
+                        @user.Phone
                     </li>
                 </ul>
             </div>
@@ -65,19 +68,18 @@
                     Trạng thái: @Model.BookStatus
                 </li>
             </ul>
-            <div style="display: inline-block; width:240px; vertical-align: top;">
+            <div style="display: inline-block; width:240px; vertical-align: top; overflow-wrap:break-word;">
                 <h5>Ngày đăng:</h5> @Model.PostDate
                 <h5>Hạn cuối:</h5> @Model.DueDate
                 <h4>Mô tả</h4>
-                @Model.Descrptn
+                <p style="height:90px; ">@Model.Descrptn</p>
             </div>
             @{
     if (@Session["LogedUserID"] != null)
     {
         if (int.Parse(@Session["LogedUserID"].ToString()) == @Model.AccID)
         {
-            <button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Chỉnh sửa</button>
-                            <button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Khóa</button>
+            <button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Xóa</button>
         }
                 else
                 {
@@ -94,10 +96,16 @@
 </div>
 <div class="swap-area">
     <h3>Đề xuất (@Model.SwapItem.Count)</h3>
+    @{
+        if (@Model.SwapItem.Count == 0)
+        {
+            <h5 style="font-style:italic;">Chưa có đề xuất nào.</h5>
+        }
+    }
     <ul class="rcmd-list">
         @{
             SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
-            var swapItem = db.SwapItem.Where(x => x.BookID == @Model.ID).ToList();
+            var swapItem = db.SwapItem.Where(x => x.BookID == @Model.ID).OrderByDescending(x => x.PostDate).ToList();
         }
         @foreach (var item in swapItem)
         {
@@ -114,7 +122,7 @@
                         <img src="@imgUrl" alt="Avatar" class="img-circle" />
                     </div>
                     <div class="comment-content">
-                        <a href=""><h4>@item.Account.Fullname</h4></a>
+                        <a href="~/User/Edit/@item.AccID"><h4>@item.Account.Fullname</h4></a>
                         <p>
                             <strong style="">@item.ItemTitle</strong>
                             <a href="" style="margin-left:20px;" data-toggle="modal" data-target="#Modal-SwapCmt-@item.ID"><span class="glyphicon glyphicon-comment"></span> Bình luận (@item.Comment.Count)</a>
@@ -128,12 +136,18 @@
                                         <h4 class="modal-title" id="myModalLabel">Bình luận</h4>
                                     </div>
                                     <div class="modal-body" style="height:auto; padding-left:30px;">
-                                        <form style="width:400px; margin-bottom: 5px;">
-                                            <textarea class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Bình luận..."></textarea>
-                                            <input id="btnSubmit" type="submit" value="Đăng" class="btn btn-default" style="display:block;" />
-                                        </form>
                                         @{
-                                            var commentDB = db.Comment.Where(x => x.SwapItemID == @item.ID).ToList();
+                                            if (@Session["LogedUserID"] != null)
+                                            {
+                                                @Html.Partial("~/Views/Comment/Create.cshtml", new SwapMVC.Models.Comment(), new ViewDataDictionary { { "itemID", @item.ID } })
+                                            }
+                                        }
+                                        @{
+                                            var commentDB = db.Comment.Where(x => x.SwapItemID == @item.ID).OrderByDescending(x => x.CommentDate).ToList();
+                                            if (@commentDB.Count == 0)
+                                            {
+                                                <h5 style="font-style:italic;">Chưa có bình luận nào.</h5>
+                                            }
                                         }
                                         @foreach (var cmt in commentDB)
                                         {
@@ -182,4 +196,3 @@
 
     </ul>
 </div>
-

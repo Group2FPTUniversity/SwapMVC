@@ -56,12 +56,14 @@ namespace SwapMVC.Controllers
             {
                 db.Comment.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.AccID = new SelectList(db.Account, "ID", "Email", comment.AccID);
+                ViewBag.SwapItemID = new SelectList(db.SwapItem, "ID", "ItemType", comment.SwapItemID);
+                return Json(comment);
             }
-
-            ViewBag.AccID = new SelectList(db.Account, "ID", "Email", comment.AccID);
-            ViewBag.SwapItemID = new SelectList(db.SwapItem, "ID", "ItemType", comment.SwapItemID);
-            return View(comment);
+            else
+            {
+                return Json("false");
+            }
         }
 
         //

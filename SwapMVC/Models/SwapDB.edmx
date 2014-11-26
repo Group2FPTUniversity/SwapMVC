@@ -450,7 +450,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SwapItemID" Type="Int32" Nullable="false" />
           <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CommentDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Account" Relationship="Self.FK__Comment__AccID__37A5467C" FromRole="Comment" ToRole="Account" />
           <NavigationProperty Name="SwapItem" Relationship="Self.FK__Comment__SwapIte__36B12243" FromRole="Comment" ToRole="SwapItem" />
@@ -464,7 +464,7 @@
           <Property Name="AccID" Type="Int32" Nullable="false" />
           <Property Name="ItemType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ItemTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ItemDcrpt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDcrpt" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ItemImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Int32" />
           <Property Name="ItemStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />

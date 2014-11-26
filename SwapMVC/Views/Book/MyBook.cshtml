@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<SwapMVC.Models.Book>
 
 @{
-    ViewBag.Title = "Tủ sách của tôi";
+    ViewBag.Title = "Sách của tôi";
 }
 
 @section Leftside {
     <section>
         @{
-            int userID = int.Parse(@Session["LogedUserID"].ToString());
-            SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
-            var user = db.Account.Find(userID);
+            var user = Model.First().Account;
             string imgUrl = "";
             if (user.Avatar != null)
             {
@@ -37,10 +35,10 @@
             </div>
             <ul class="accMenuList">
                 <li>
-                    <h4><a href="" style="text-decoration:none; color:#646464;">Thông tin chung</a></h4>
+                    <h4><a href="~/User/Edit/@user.ID.ToString()" style="text-decoration:none; color:#646464;">Thông tin chung</a></h4>
                 </li>
                 <li>
-                    <h4><a href="" style="text-decoration:none; color:#646464;">Sách của tôi</a></h4>
+                    <h4><a href="~/Book/MyBook/@user.ID.ToString()" style="text-decoration:none; color:#646464; font-weight:bold;">Sách của tôi</a></h4>
                 </li>
                 <li>
                     <h4><a href="" style="text-decoration:none; color:#646464;">Sách đã đổi</a></h4>
@@ -55,15 +53,25 @@
 <div class="topic-block" style="padding:10px; padding-left:20px; padding-right:20px; ">
     <h1 style="border-bottom:solid 1px whitesmoke;">
         Tủ sách của tôi
-        <span>
-            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-AddNewBook" style="display:inline; float:right;">Thêm mới</button>
-            <!-- Modal -->
-            @Html.Partial("~/Views/Book/Create.cshtml", new SwapMVC.Models.Book())
-        </span>
+        @{
+            var currentUser = Model.First().Account;
+            if (@Session["LogedUserID"] != null && @Session["LogedUserID"].ToString().Equals(@currentUser.ID.ToString()))
+            {
+                <span>
+                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Modal-AddNewBook" style="display:inline; float:right;">Thêm mới</button>
+                    <!-- Modal -->
+                    @Html.Partial("~/Views/Book/Create.cshtml", new SwapMVC.Models.Book())
+                </span>
+            }
+        }
+        
     </h1>
     <!--grid-->
     <ul class="book-list">
-        @foreach (var item in Model)
+        @{
+            var bookList = Model.ToList().OrderByDescending(x => x.PostDate);
+        }
+        @foreach (var item in bookList)
         {
             <li>                
                 <a href="~/Book/Details/@item.ID">

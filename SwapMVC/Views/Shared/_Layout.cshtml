@@ -79,7 +79,7 @@
                         else
                         {
                             <li>
-                                <a href="~/Book/MyBook/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
+                                <a href="~/User/Edit/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
                                 <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
                             </li>
                         }
@@ -89,7 +89,7 @@
         </div>
     </div>
     <!--Main layout-->
-    <div class="container">
+    <div class="container" style="margin-bottom:30px;">
         <div class="left-side">
             @RenderSection("Leftside", false)
         </div>
@@ -100,5 +100,15 @@
             </section>
         </div>
     </div>
+
+    <!--Footer-->
+    <div class="footer">
+        <div class="container">
+            <a href="~/Home/About">
+                <img src="~/Images/Seed%20icon%20home.png" />
+            </a>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 ﻿@model SwapMVC.Models.Account
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Đăng nhập";
 }
 
 
@@ -19,7 +19,7 @@
                     function (data) {
                         if (data == "false")
                         {
-                            $("#invalid").text("Username and password is not correct!");
+                            $("#invalid").text("Email hoặc mật khẩu không đúng!");
                         }
                         else
                         {
@@ -27,7 +27,7 @@
                         }
                     });
         } else {
-            $("#invalid").text("Please enter email");
+            $("#invalid").text("Vui lòng nhập email.");
         }
     });
 
@@ -36,14 +36,11 @@
 
 
 
-
-
-
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width:430px;margin-top:85px">
         <div class="modal-content">
             <div class="modal-body">
-                <img src="../Images/logo.png" />
+                <img src="~/Images/logo.png" />
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h3 class="modal-title" id="myModalLabel">Đăng nhập</h3>
 
