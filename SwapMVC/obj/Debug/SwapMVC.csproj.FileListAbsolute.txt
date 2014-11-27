@@ -321,7 +321,6 @@ E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\bin\k
 E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\bin\ru\System.Spatial.resources.dll
 E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\bin\zh-Hans\System.Spatial.resources.dll
 E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\bin\zh-Hant\System.Spatial.resources.dll
-E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\obj\Debug\SwapMVC.csprojResolveAssemblyReference.cache
 E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\obj\Debug\SwapMVC.dll
 E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\obj\Debug\SwapMVC.pdb
 C:\Users\Ng\Documents\Visual Studio 2013\Projects\Swap\SwapMVC\bin\SwapMVC.dll.config
@@ -410,3 +409,4 @@ C:\Users\Ng\Documents\Visual Studio 2013\Projects\Swap\SwapMVC\bin\zh-Hant\Syste
 C:\Users\Ng\Documents\Visual Studio 2013\Projects\Swap\SwapMVC\obj\Debug\SwapMVC.csprojResolveAssemblyReference.cache
 C:\Users\Ng\Documents\Visual Studio 2013\Projects\Swap\SwapMVC\obj\Debug\SwapMVC.dll
 C:\Users\Ng\Documents\Visual Studio 2013\Projects\Swap\SwapMVC\obj\Debug\SwapMVC.pdb
+E:\Software Quality Assurance & Testing\GitHub - ProjectCode\trunk\SwapMVC\obj\Debug\SwapMVC.csprojResolveAssemblyReference.cache

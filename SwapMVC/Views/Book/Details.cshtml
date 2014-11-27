@@ -53,6 +53,9 @@
                     Tác giả: @Model.Author
                 </li>
                 <li>
+                    Danh mục: @Model.Category.Name
+                </li>
+                <li>
                     Nhà xuất bản: @Model.Publisher
                 </li>
                 <li>
@@ -72,7 +75,7 @@
                 <h5>Ngày đăng:</h5> @Model.PostDate
                 <h5>Hạn cuối:</h5> @Model.DueDate
                 <h4>Mô tả</h4>
-                <p style="height:90px; ">@Model.Descrptn</p>
+                <p style="height:60px; ">@Model.Descrptn</p>
             </div>
             @{
     if (@Session["LogedUserID"] != null)

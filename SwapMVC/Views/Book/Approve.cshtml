@@ -1,59 +1,93 @@
 ﻿@model IEnumerable<SwapMVC.Models.Book>
 
 @{
-    ViewBag.Title = "Aprapprove";
+    ViewBag.Title = "Kiểm duyệt sách";
 }
-
-<h2>Aprapprove</h2>
-
-
 @{
-    int count = 1;
-
+    var listBook = Model.OrderBy(x => x.PostDate).ToList();
 }
-@foreach (var item in Model)
-{
-    int denID = count + Model.ToList().Count + 1;
-    ++count;
-    <script>
-        $(document).on("click", "#@count", function () {
-            $.post("/Book/Approve",
-                    {
-                        bookID: @item.ID,
-                        isApprove: "true",
-                    },
-                    function (data) {
-                        window.location.replace("Approve");
-                    });
+@section Leftside{
+    <section>
+        @{
+            foreach (var item in listBook)
+            {
+                var user = item.Account;
+                <div class="info-block" style="display:block; margin-top:60px; height:135px; padding-top:3px;">
+                    <div class="swapper-intro" style="border-radius:10px 10px 10px 10px;">
+                        <h5>Được đăng bởi:</h5>
+                        <div style="display:inline-block; width: 75px; height: 75px;">
+                            <img src="" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
+                        </div>
+                        <div class="swapper-detail">
+                            <a href="~/Book/MyBook/@user.ID.ToString()">@user.Fullname</a>
+                            <ul style="margin:0; padding:0; padding-left: 10px; list-style:none;">
+                                <li>
+                                    <span class="glyphicon glyphicon-map-marker"></span>
+                                    @user.City
+                                </li>
+                                <li>
+                                    <span class="glyphicon glyphicon-phone-alt"></span>
+                                    @user.Phone
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </section>
+}
 
-        });
-        $(document).on("click", "#@denID", function () {
-            $.post("/Book/Approve",
-                    {
-                        bookID: @item.ID,
-                        isApprove: "false",
-                    },
-                    function (data) {
-                        window.location.replace("Approve");
-                    });
+<h1 style="border-bottom:solid 1px #cfcfcf; padding-bottom:10px;">Kiểm duyệt sách</h1>
 
-        });
+<div class="intro-block-approve">
+    @{
+        int count = 1;
 
-    </script>
+    }
+    @foreach (var item in listBook)
+    {
+        int denID = count + Model.ToList().Count + 1;
+        ++count;
+        <script>
+            $(document).on("click", "#@count", function () {
+                $.post("/Book/Approve",
+                        {
+                            bookID: @item.ID,
+                            isApprove: "true",
+                        },
+                        function (data) {
+                            window.location.replace("Approve");
+                        });
 
-    <div style="margin-top:10px">
+            });
+            $(document).on("click", "#@denID", function () {
+                $.post("/Book/Approve",
+                        {
+                            bookID: @item.ID,
+                            isApprove: "false",
+                        },
+                        function (data) {
+                            window.location.replace("Approve");
+                        });
 
-        <div class="intro-block-approve">
+            });
+
+        </script>
+
+        <div style="margin-top:10px">
+
+
             <div class="book-intro-approve">
                 <div class="book-img-approve">
                     @{
-    string bookImgUrl = "";
-    if (item.BookImage != null)
-    {
-        bookImgUrl = @Url.Content(@item.BookImage);
-    }
+        string bookImgUrl = "";
+        if (item.BookImage != null)
+        {
+            bookImgUrl = @Url.Content(@item.BookImage);
+        }
                     }
-                    <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" />
+                    <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" class="img-rounded"/>
                 </div>
                 <div class="book-detail-approve">
                     <h3 style="margin-top:0px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
@@ -81,26 +115,20 @@
 
 
                             <li>
-                                Trạng thái: @item.BookStatus
+                                Ngày đăng: @item.PostDate
                             </li>
                             <li>Mô tả: @item.Descrptn</li>
 
-                        </ul>
-                        <div style="display: inline-block; width:50px; vertical-align: top;">
-                            <button id="@count" type="button" class="btn btn-primary">Approve</button>
-                            <button id="@denID" type="button" class="btn btn-danger">Deny</button>
-                        </div>
+                        </ul>                        
                     </div>
-
-
-
-
-
+                </div>
+                <div style="display: inline-block; width:100px; margin:0; padding:5px; padding-bottom:15px; vertical-align: bottom;">
+                    <button id="@count" type="button" class="btn btn-primary" style="display:inline-block;"><span class="glyphicon glyphicon-ok"></span></button>
+                    <button id="@denID" type="button" class="btn btn-danger" style="display:inline-block;"><span class="glyphicon glyphicon-remove"></span></button>
                 </div>
             </div>
         </div>
-    </div>
 
 
-
-}
+    }
+</div>

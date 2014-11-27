@@ -19,7 +19,8 @@ namespace SwapMVC.Controllers
         {
             //var book = db.Book.Include(b => b.Account).Include(b => b.Category);
             //return View(book.ToList());
-            var list = db.Book.Where(book => book.AccID== id).ToList();
+            var list = db.Book.Where(book => book.AccID == id && !book.BookStatus.Equals("Denied") && !book.BookStatus.Equals("Chờ duyệt")).ToList();
+            ViewBag.ownerBookID = id;
             return View(list);
         }
 
@@ -27,14 +28,14 @@ namespace SwapMVC.Controllers
         {
             int skippedPage = (id - 1) * 10;
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            List<Book> list = book.ToList().OrderByDescending(o => o.PostDate).Skip(skippedPage).Take(10).ToList();
+            List<Book> list = book.Where(b => !b.BookStatus.Equals("Denied") && !b.BookStatus.Equals("Chờ duyệt")).ToList().OrderByDescending(o => o.PostDate).Skip(skippedPage).Take(10).ToList();
             return View(list);
         }
 
         public ActionResult Index()
         {
             var book = db.Book.Include(b => b.Account).Include(b => b.Category);
-            List<Book> list = book.ToList().OrderBy(o=>o.PostDate).Take(5).ToList();
+            List<Book> list = book.Where(b => !b.BookStatus.Equals("Denied") && !b.BookStatus.Equals("Chờ duyệt")).ToList().OrderBy(o => o.PostDate).Take(5).ToList();
             return View(list);
         }
 
@@ -53,7 +54,7 @@ namespace SwapMVC.Controllers
 
         public ActionResult Approve()
         {
-            var list = db.Book.Where(bookID => bookID.BookStatus == "Pending").ToList();
+            var list = db.Book.Where(bookID => bookID.BookStatus == "Chờ duyệt").ToList();
             return View(list);
         }
         [HttpPost]
@@ -74,7 +75,7 @@ namespace SwapMVC.Controllers
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            var list = db.Book.Where(b => b.BookStatus == "Pending").ToList();
+            var list = db.Book.Where(b => b.BookStatus == "Chờ duyệt").ToList();
             return View(list);
         }
 

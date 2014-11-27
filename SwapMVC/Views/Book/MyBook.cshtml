@@ -1,13 +1,18 @@
 ﻿@model IEnumerable<SwapMVC.Models.Book>
 
 @{
-    ViewBag.Title = "Sách của tôi";
+    SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+    int ownerID = ViewBag.ownerBookID;
+    
+    var user = db.Account.Where(a => a.ID == ownerID).FirstOrDefault();
+    
+    ViewBag.Title = "Sách của " + user.Fullname;
 }
 
 @section Leftside {
     <section>
         @{
-            var user = Model.First().Account;
+            
             string imgUrl = "";
             if (user.Avatar != null)
             {
@@ -52,10 +57,9 @@
 }
 <div class="topic-block" style="padding:10px; padding-left:20px; padding-right:20px; ">
     <h1 style="border-bottom:solid 1px whitesmoke;">
-        Tủ sách của tôi
+        Sách của @user.Fullname
         @{
-            var currentUser = Model.First().Account;
-            if (@Session["LogedUserID"] != null && @Session["LogedUserID"].ToString().Equals(@currentUser.ID.ToString()))
+            if (@Session["LogedUserID"] != null && @Session["LogedUserID"].ToString().Equals(@user.ID.ToString()))
             {
                 <span>
                     <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Modal-AddNewBook" style="display:inline; float:right;">Thêm mới</button>
@@ -67,10 +71,35 @@
         
     </h1>
     <!--grid-->
-    <ul class="book-list">
-        @{
-            var bookList = Model.ToList().OrderByDescending(x => x.PostDate);
+    @{
+        var bookList = Model.ToList().OrderByDescending(x => x.PostDate);
+
+        if (@Session["LogedUserID"] != null && @Session["LogedUserID"].ToString().Equals(@user.ID.ToString()))
+        {
+            if (user.Book.Where(b => !b.BookStatus.Equals("Denied")).ToList().Count() == 0)
+            {
+                <h4 style="font-style:italic; font-weight:lighter; margin:10px;">(Chưa có sách)</h4>
+            }
+            else
+            {
+                int count = user.Book.Where(b => b.BookStatus.Equals("Chờ duyệt")).Count();
+                if (count > 0)
+                {
+                    <h4 style="font-style:italic; font-weight:lighter; margin:10px;">(@count quyển sách đang chờ duyệt)</h4>
+                }
+            }
         }
+        else
+        {
+            if (bookList.Count() == 0)
+            {
+                <h4 style="font-style:italic; font-weight:lighter; margin:10px;">(Chưa có sách)</h4>
+            }
+        }
+
+}
+    <ul class="book-list">
+        
         @foreach (var item in bookList)
         {
             <li>                

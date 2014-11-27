@@ -54,7 +54,7 @@
                     },
                     function (data) {
                         if (data == "true") {
-                            $("#invalid2").text("Email đã bị trùng");
+                            $("#invalid2").text("Địa chỉ email đã được sử dụng.");
                         } else {
                             if (check == true) {
                                 window.location.replace("Home");
@@ -77,9 +77,8 @@
     <div class="modal-dialog" style="width:430px;margin-top:85px">
         <div class="modal-content">
             <div class="modal-body">
-                <img src="../Images/logo.png" />
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title" id="myModalLabel">Đăng ký</h3>
+                <h3 class="modal-title" id="myModalLabel"><span><img src="~/Images/logo.png" /></span> Đăng ký</h3>
                 @using (Html.BeginForm("Create", "User", FormMethod.Post, new { id = "registerModal", enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
@@ -121,28 +120,29 @@
 
                             <div class="editor-field" style="margin-bottom: 15px;">
                                 <p id="invalid2" style="color: red;"></p>
-                                <input type="text" id="email" class="form-control" name="Email" placeholder="Email"><span id="vEmail" style="color:red;">*</span>
+                                <p id="vEmail" style="color:red;">Vui lòng nhập địa chỉ email.</p>
+                                <input type="text" id="email" class="form-control" name="Email" placeholder="Email">
 
 
                             </div>
 
                             <div class="editor-field" style="margin-bottom: 15px;">
-                                <input type="password" id="pass" class="form-control" name="Passwd" placeholder="Mật khẩu"><span id="vPass" style="color:red;">*</span>
+                                <p id="vPass" style="color:red;">Vui lòng nhập mật khẩu</p>
+                                <input type="password" id="pass" class="form-control" name="Passwd" placeholder="Mật khẩu">
 
                             </div>
                             <div class="editor-field" style="margin-bottom: 15px;">
-                                <input type="password" id="confirm" class="form-control" placeholder="Nhập lại mật khẩu"><span id="vConfirm" style="color:red;">*</span>
+                                <p id="vConfirm" style="color:red;">Mật khẩu xác nhận không đúng.</p>
+                                <input type="password" id="confirm" class="form-control" placeholder="Xác nhận mật khẩu">
                             </div>
 
+                            <p id="vName" style="color:red;">Vui lòng nhập họ và tên.</p>
                             <div class="editor-field" style="display: inline-block; width:67%; margin-bottom: 15px; margin-right:15px;">
                                 <input type="text" id="name" style="width:94%" class="form-control" name="Fullname" placeholder="Họ và tên">
-                                <span id="vName" style="color:red;">*</span>
-
                             </div>
 
 
                             <div class="editor-field" style="display: inline-block; margin-bottom: 15px;">
-
                                 <div class="dropdown" style="display:inline-block; margin-bottom: 1px;">
                                     <input name="Gender" id="Gender" type="hidden" value="" />
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">

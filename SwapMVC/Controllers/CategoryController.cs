@@ -27,7 +27,7 @@ namespace SwapMVC.Controllers
         public ActionResult Details(int id)
         {
             ViewData["cateID"] = id;
-            var list = db.Book.Where(bookID => bookID.CategoryID == id).ToList();
+            var list = db.Book.Where(bookID => bookID.CategoryID == id && !bookID.BookStatus.Equals("Denied") && !bookID.BookStatus.Equals("Chờ duyệt")).ToList();
             return View(list);
         }
 

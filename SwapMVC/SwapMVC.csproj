@@ -309,11 +309,9 @@
     <Content Include="Images\b3.jpg" />
     <Content Include="Images\background-paper.jpg" />
     <Content Include="Images\books %281%29.jpg" />
-    <Content Include="Images\carousel-item1.jpg" />
-    <Content Include="Images\carousel-item2.jpg" />
-    <Content Include="Images\carousel-item3.jpg" />
     <Content Include="Images\logo - whitesmoke.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\old-books.jpg" />
     <Content Include="Images\pages2.jpg" />
     <Content Include="Images\portal.png" />
     <Content Include="Images\Seed icon home.png" />
