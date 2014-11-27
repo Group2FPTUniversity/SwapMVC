@@ -54,7 +54,7 @@ namespace SwapMVC.Controllers
 
         public ActionResult Approve()
         {
-            var list = db.Book.Where(bookID => bookID.BookStatus == "Chờ duyệt").ToList();
+            var list = db.Book.Where(bookID => bookID.BookStatus == "Chờ duyệt").OrderByDescending(d=>d.PostDate).ToList();
             return View(list);
         }
         [HttpPost]
@@ -65,7 +65,7 @@ namespace SwapMVC.Controllers
             {
                 if (isApprove.Equals("true"))
                 {
-                    book.BookStatus = "Đã kiểm duyệt";
+                    book.BookStatus = "Đã duyệt";
                 }
                 else
                 {
