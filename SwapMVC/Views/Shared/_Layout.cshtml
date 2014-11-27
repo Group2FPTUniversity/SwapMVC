@@ -45,14 +45,18 @@
                     }
                     @{
                         SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
-                        var user = db.Account.Find(int.Parse(@Session["LogedUserID"].ToString()));
-
-                        if (user.AccType.Equals("Admin"))
+                        if (@Session["LogedUserID"] != null)
                         {
-                            <li class="nav-item">
-                                <a href="~/Book/Approve">Kiểm duyệt sách</a>
-                            </li>
+                            var user = db.Account.Find(int.Parse(@Session["LogedUserID"].ToString()));
+
+                            if (user.AccType.Equals("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a href="~/Book/Approve">Kiểm duyệt sách</a>
+                                </li>
+                            }
                         }
+
                         else
                         {
                             <li class="nav-item">
@@ -60,21 +64,17 @@
                             </li>
                         }
 }
-                    
-                    <li>
-
-
-                    </li>
+               
 
                 </ul>
             </div>
             <div>
 
-                <form class="navbar-form navbar-left" style="float:none; margin:0; margin-top:4px; vertical-align:central;">
+                <form action="/Book/Search" class="navbar-form navbar-left" style="float:none; margin:0; margin-top:4px; vertical-align:central;">
                     <div class="input-group input-group-sm">
-                        <input type="text" placeholder="Tìm kiếm" class="form-control">
+                        <input type="text" placeholder="Tìm kiếm" name="search" class="form-control">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <button class="btn btn-default" type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>

@@ -14,7 +14,7 @@
         <div class="swapper-intro">
             <h5>Được đăng bởi:</h5>
             <div style="display:inline-block; width: 75px; height: 75px;">
-                <img src="" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
+                <img src="@Url.Content(user.Avatar)" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
             </div>
             <div class="swapper-detail">
                 <a href="~/Book/MyBook/@user.ID.ToString()">@user.Fullname</a>
@@ -50,7 +50,7 @@
             <h2 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
                 @Model.Title
             </h2>
-            <ul style="display: inline-block; width:350px;">
+            <ul style="display: inline-block; width:320px;">
                 <li>
                     Tác giả: @Model.Author
                 </li>
@@ -73,11 +73,11 @@
                     Trạng thái: @Model.BookStatus
                 </li>
             </ul>
-            <div style="display: inline-block; width:240px; vertical-align: top; overflow-wrap:break-word;">
+            <div style="display: inline-block; width:280px; vertical-align: top; overflow-wrap:break-word;">
                 <h5>Ngày đăng:</h5> @Model.PostDate
                 <h5>Hạn cuối:</h5> @Model.DueDate
                 <h4>Mô tả</h4>
-                <p style="height:60px; ">@Model.Descrptn</p>
+                <p style="height:100px;text-overflow: inherit; white-space: initial;overflow: hidden;text-align:justify">@Model.Descrptn</p>
             </div>
             @{
                 if (@Session["LogedUserID"] != null)

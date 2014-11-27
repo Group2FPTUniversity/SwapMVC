@@ -19,7 +19,7 @@
                 imgUrl = @Url.Content(user.Avatar);
             }
         }
-        <div class="info-block" style="width:230px; background-color:white; padding-bottom:100px;">
+        <div class="info-block" style="width:230px; background-color:white; padding-bottom:10px; margin-bottom:15px">
             <div class="swapper-intro" style="padding-left:15px; padding-right:15px;">
                 <div style="display:block; width: 200px; height: 200px; margin-top:10px;">
                     <img src="@imgUrl" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
@@ -45,18 +45,15 @@
                 <li>
                     <h4><a href="~/Book/MyBook/@user.ID.ToString()" style="text-decoration:none; color:#646464; font-weight:bold;">Sách của tôi</a></h4>
                 </li>
-                <li>
-                    <h4><a href="" style="text-decoration:none; color:#646464;">Sách đã đổi</a></h4>
-                </li>
-                <li>
-                    <h4><a href="" style="text-decoration:none; color:#646464;">Sách đang quan tâm</a></h4>
-                </li>
             </ul>
+        </div>
+        <div class="header-category">
+            Danh mục
         </div>
     </section>
 }
 <div class="topic-block" style="padding:10px; padding-left:20px; padding-right:20px; ">
-    <h1 style="border-bottom:solid 1px whitesmoke;">
+    <h1 style="border-bottom:solid 1px whitesmoke;color:#45629c">
         Sách của @user.Fullname
         @{
             if (@Session["LogedUserID"] != null && @Session["LogedUserID"].ToString().Equals(@user.ID.ToString()))

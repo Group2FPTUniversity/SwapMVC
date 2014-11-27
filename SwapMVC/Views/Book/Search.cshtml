@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SwapMVC.Models.Book>
+
+@{
+    ViewBag.Title = "Search result";
+}
+
+@section Leftside {
+    <section>
+        <!--category-->
+        @{
+            SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+            var category = db.Category.ToList();
+            var listTrans = db.SwapTransaction.OrderBy(trans => trans.SwapDate).ToList();
+
+        }
+        @Html.Partial("_Category", category)
+
+
+
+    </section>
+}
+<h1 style="border-bottom:solid 1px #cfcfcf; padding-bottom:10px;">Kết quả tìm kiếm</h1>
+
+
+<div class="intro-block-search" style="width:850px">
+
+    @foreach (var item in Model)
+    {
+
+        <div style="margin-top:10px; margin-left:10px">
+
+
+            <div class="book-intro-search">
+                <div class="book-img-search">
+                    @{
+        string bookImgUrl = "";
+        if (item.BookImage != null)
+        {
+            bookImgUrl = @Url.Content(@item.BookImage);
+        }
+                    }
+                    <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" class="img-rounded" />
+                </div>
+                <div class="book-detail-search">
+                    <h3 style="margin-top:0px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                        <a href="~/Book/Details/@item.ID"> @item.Title</a>
+                    </h3>
+                    <ul style="display: inline-block; width:300px;">
+                        <li>
+                            Tác giả: @item.Author
+                        </li>
+                        <li>
+                            Nhà xuất bản: @item.Publisher
+                        </li>
+                        <li>
+                            Năm xuất bản: @item.PblYear
+                        </li>
+                        <li>
+                            Giá bìa: @item.Price
+                        </li>
+                        <li>
+                            Địa điểm: @item.DetailAddr (@item.City)
+                        </li>
+                    </ul>
+                    <div style="display: inline-block; width:390px; vertical-align: top;text-align:justify">
+                        <ul>
+                            <li>
+                                Ngày đăng: @item.PostDate
+                            </li>
+                            <li>Mô tả: @item.Descrptn</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

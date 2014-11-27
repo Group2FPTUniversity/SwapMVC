@@ -12,18 +12,11 @@
             foreach (var item in listBook)
             {
                 var user = item.Account;
-                <div class="info-block" style="display:block; margin-top:60px; height:135px; padding-top:3px;">
+                <div class="info-block" style="display:block; margin-top:80px; height:135px; padding-top:3px;">
                     <div class="swapper-intro" style="border-radius:10px 10px 10px 10px;">
                         <h5>Được đăng bởi:</h5>
                         <div style="display:inline-block; width: 75px; height: 75px;">
-                            @{
-                                string imgUrl = "";
-                                if (user.Avatar != null)
-                                {
-                                    imgUrl = Url.Content(user.Avatar);
-                                }
-                            }
-                            <img src="@imgUrl" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
+                            <img src="@Url.Content(user.Avatar)" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
                         </div>
                         <div class="swapper-detail">
                             <a href="~/Book/MyBook/@user.ID.ToString()">@user.Fullname</a>
@@ -94,12 +87,12 @@
             bookImgUrl = @Url.Content(@item.BookImage);
         }
                     }
-                    <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" class="img-rounded"/>
+                    <img style="width:inherit; height: inherit;" src="@bookImgUrl" alt="Ảnh bìa sách" class="img-rounded" />
                 </div>
                 <div class="book-detail-approve">
                     <h3 style="margin-top:0px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-                        @item.Title
-                    </h3>
+                        <a href="~/Book/Details/@item.ID">   @item.Title</a>
+</h3>
                     <ul style="display: inline-block; width:300px;">
                         <li>
                             Tác giả: @item.Author
@@ -117,7 +110,7 @@
                             Địa điểm: @item.DetailAddr (@item.City)
                         </li>
                     </ul>
-                    <div style="display: inline-block; width:300px; vertical-align: top;">
+                    <div style="display: inline-block; width:335px; vertical-align: top;text-align:justify">
                         <ul>
 
 
@@ -126,7 +119,7 @@
                             </li>
                             <li>Mô tả: @item.Descrptn</li>
 
-                        </ul>                        
+                        </ul>
                     </div>
                 </div>
                 <div style="display: inline-block; width:100px; margin:0; padding:5px; padding-bottom:15px; vertical-align: bottom;">
