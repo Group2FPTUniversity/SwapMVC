@@ -20,9 +20,9 @@
                 interval: 2000
             });
         });
- 
-   
-       
+
+
+
     </script>
 </head>
 <body style=" background-color: whitesmoke">
@@ -38,7 +38,7 @@
                         <a href="~/Home/Home" title="Trang chủ">Trang chủ</a>
                     </li>
                     @if (@Session["LogedUserID"] != null)
-                    { 
+                    {
                         <li class="nav-item">
                             <a href="~/Book/MyBook/@Session["LogedUserID"]">Tủ sách của tôi</a>
                         </li>
@@ -63,8 +63,8 @@
                                 <a href="~/Home/Contact">Liên hệ</a>
                             </li>
                         }
-}
-               
+                    }
+
 
                 </ul>
             </div>
@@ -81,25 +81,29 @@
                     </div>
                 </form>
             </div>
-                <ul class="nav-list">
-                    @{
-                        if (@Session["LogedUserFullname"] == null)
-                        {
-                            <li style="padding:30px"><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
-                            @Html.Partial("~/Views/User/Login.cshtml", new SwapMVC.Models.Account())
-                            <li> / <a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
-                            @Html.Partial("~/Views/User/Create.cshtml", new SwapMVC.Models.Account())
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="~/User/Edit/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
-                                <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
-                            </li>
-                        }
+            <ul class="nav-list">
+                @{
+                    if (@Session["LogedUserFullname"] == null)
+                    {
+                        <li style="padding:30px"><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
+                        @Html.Partial("~/Views/User/Login.cshtml", new SwapMVC.Models.Account())
+                        <li> / <a href="" data-toggle="modal" data-target="#registerModal">Đăng kí</a></li>
+                        @Html.Partial("~/Views/User/Create.cshtml", new SwapMVC.Models.Account())
                     }
-                </ul>
-            
+                    else
+                    {
+                        <li>
+                            <a href="~/User/Edit/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
+                            <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
+                        </li>
+
+                        <li style="padding:30px"><a href="" data-toggle="modal" data-target="#notifyModal">Thông báo</a></li>
+                    @Html.Partial("~/Views/User/Notify.cshtml", new SwapMVC.Models.Account())    
+
+                    }
+                }
+            </ul>
+
         </div>
     </div>
     <!--Main layout-->
