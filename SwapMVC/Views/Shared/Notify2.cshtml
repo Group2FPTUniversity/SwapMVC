@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SwapMVC.Models.Notify>
+
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:830px;margin-top:0;">
+        <div class="modal-content" style=" margin:5px">
+            <div class="modal-header" style="border:none;">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel"><span><img src="~/Images/logo.png" /></span> Thông báo</h3>
+            </div>
+            <div class="modal-body">
+                @{
+                    SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+
+                }
+
+                @foreach (var item in Model)
+                {
+                    var user = db.Account.Find(item.SubAcc);
+                    var book = db.Book.Find(item.BookID);
+                    if (@Session["LogedUserID"].ToString() == item.AccID.ToString())
+                    {
+                        if (item.Status == "SwapItem")
+                        {
+                            <ul>
+                                <li>
+                                    > @user.Fullname đã yêu cầu đổi sách: <a href="~/Book/Details/@book.ID" style="color:blue">@book.Title </a>
+                                </li>
+                            </ul>
+                        }
+                        if (item.Status == "Comment")
+                        {
+                            <ul>
+                                <li>
+                                    > @user.Fullname đã bình luận tại sách: <a href="~/Book/Details/@book.ID" style="color:blue">@book.Title </a>
+                                </li>
+                            </ul>
+                        }
+
+                    }
+
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

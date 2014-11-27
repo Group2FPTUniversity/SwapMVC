@@ -96,9 +96,12 @@
                             <a href="~/User/Edit/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
                             <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
                         </li>
-
+                       
                         <li style="padding:30px"><a href="" data-toggle="modal" data-target="#notifyModal">Thông báo</a></li>
-                    @Html.Partial("~/Views/User/Notify.cshtml", new SwapMVC.Models.Account())    
+                      
+                        
+                        var notify = db.Notify.ToList().OrderByDescending(d=>d.Date).Take(10);
+                        @Html.Partial("Notify2", notify)
 
                     }
                 }

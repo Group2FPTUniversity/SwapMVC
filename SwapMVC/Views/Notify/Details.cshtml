@@ -1,0 +1,50 @@
+﻿@model SwapMVC.Models.Notify
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Notify</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AccID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AccID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SubAcc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SubAcc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BookID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BookID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Date)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
