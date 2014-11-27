@@ -42,7 +42,7 @@ namespace SwapMVC.Controllers
         {
             ViewBag.AccID = new SelectList(db.Account, "ID", "Email");
             ViewBag.SwapItemID = new SelectList(db.SwapItem, "ID", "ItemType");
-            return View();
+            return PartialView();
         }
 
         //
@@ -58,7 +58,7 @@ namespace SwapMVC.Controllers
                 db.SaveChanges();
                 ViewBag.AccID = new SelectList(db.Account, "ID", "Email", comment.AccID);
                 ViewBag.SwapItemID = new SelectList(db.SwapItem, "ID", "ItemType", comment.SwapItemID);
-                return Json(comment);
+                return Json("true");
             }
             else
             {

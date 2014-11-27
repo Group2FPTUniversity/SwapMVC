@@ -65,7 +65,7 @@ namespace SwapMVC.Controllers
             {
                 if (isApprove.Equals("true"))
                 {
-                    book.BookStatus = "Approved";
+                    book.BookStatus = "Đã kiểm duyệt";
                 }
                 else
                 {

@@ -43,10 +43,24 @@
                             <a href="~/Book/MyBook/@Session["LogedUserID"]">Tủ sách của tôi</a>
                         </li>
                     }
+                    @{
+                        SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+                        var user = db.Account.Find(int.Parse(@Session["LogedUserID"].ToString()));
 
-                    <li class="nav-item">
-                        <a href="~/Home/Contact">Liên hệ</a>
-                    </li>
+                        if (user.AccType.Equals("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="~/Book/Approve">Kiểm duyệt sách</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a href="~/Home/Contact">Liên hệ</a>
+                            </li>
+                        }
+}
+                    
                     <li>
 
 

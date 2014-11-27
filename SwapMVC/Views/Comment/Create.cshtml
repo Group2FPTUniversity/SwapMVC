@@ -9,7 +9,7 @@
 
 
 
-@using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+@using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { id = "cmtCreateForm-" + @ViewData["itemID"].ToString() }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -27,22 +27,40 @@
         <button type="button" id="btnCreate-@ViewData["itemID"].ToString()" class="btn btn-primary" style="display:block; margin-left:335px;">Đăng</button>
         <input type="submit" id="btnSubmit-@ViewData["itemID"].ToString()" value="create" style="display:none" />
         <script>
-            $(document).on("click", "#btnCreate-@ViewData["itemID"].ToString()", function () {
-                if ($("#content-@ViewData["itemID"].ToString()").val().trim().length > 0) {
-                    if ($("#content-@ViewData["itemID"].ToString()").val().trim().length > 500){
-                        $("#invalid-@ViewData["itemID"].ToString()").text("Tối đa 500 kí tự.");
-                    }else{
-                        $("#invalid-@ViewData["itemID"].ToString()").text("");
+    $(document).on("click", "#btnCreate-@ViewData["itemID"].ToString()", function () {
+        if ($("#content-@ViewData["itemID"].ToString()").val().trim().length > 0) {
+            if ($("#content-@ViewData["itemID"].ToString()").val().trim().length > 500) {
+                $("#invalid-@ViewData["itemID"].ToString()").text("Tối đa 500 kí tự.");
+            } else {
+                $("#invalid-@ViewData["itemID"].ToString()").text("");
 
-                        $("#btnSubmit-@ViewData["itemID"].ToString()").click();
+                @*$("#btnSubmit-@ViewData["itemID"].ToString()").click();*@
+
+                $.ajax({
+                    url: '@Url.Action("Create","Comment")',
+                    type: 'POST',
+                    cache: false,
+                    data: jQuery("#cmtCreateForm-@ViewData["itemID"].ToString()").serialize(),
+                    success: function (result) {
+                        if (result == "true") {
+                            $("#invalid-@ViewData["itemID"].ToString()").text("");
+                        $("#content-@ViewData["itemID"].ToString()").text("");
+                        $("#Modal-SwapCmt-@ViewData["itemID"].ToString()").show();
+                        location.reload();
+
+                    } else {
+                        $("#invalid-@ViewData["itemID"].ToString()").text("Đã xảy ra lỗi, vui lòng thử lại sau.");
                     }
-
-                } else {
-                    $("#invalid-@ViewData["itemID"].ToString()").text("Vui lòng nhập nội dung.");
                 }
             });
+        }
 
-        </script>
+    } else {
+            $("#invalid-@ViewData["itemID"].ToString()").text("Vui lòng nhập nội dung.");
+    }
+    });
+
+</script>
 
     </fieldset>
 }

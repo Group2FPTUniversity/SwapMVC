@@ -8,15 +8,16 @@
 <div class="modal fade" id="Modal-SwapRcmd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 460px;">
         <div class="modal-content">
-            @using (Html.BeginForm("Create", "SwapItem", FormMethod.Post, new { id = "Modal-AddNewBook", enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Create", "SwapItem", FormMethod.Post, new { id = "Modal-SwapRcmd", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
 
                 <fieldset>
-                    <div class="modal-header">
+                    <div class="modal-header" style="border:none;">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Đóng</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Đề xuất đổi</h4>
+                        
+                        <h3 class="modal-title" id="myModalLabel" ><span><img src="~/Images/logo.png" /></span> Đề xuất đổi</h3>
                     </div>
                     <div class="modal-body" style="height:auto; padding-left:30px; width:400px; margin-bottom: 5px;">
                         
@@ -24,6 +25,31 @@
                         <input name="BookID" type="hidden" value="@ViewData["bookID"].ToString()" />
                         <input name="ItemStatus" type="hidden" value="Đang chờ" />
                         <input name="PostDate" type="hidden" value="@DateTime.Now" />
+
+                        <!--Img-->
+                        <div style="margin-bottom:10px;">
+                            <img id="itemImg" src="" alt="" style="display:inline-block; width: 150px; height: 180px;" />
+                            <input id="browseImg" name="file" type='file' onchange="readURL(this);" style="display:none;" />
+                            <button type="button" class="btn btn-default" onclick="HandleBrowseClick()">Tải ảnh lên</button>
+                            <script>
+                                function HandleBrowseClick() {
+                                    var fileinput = document.getElementById("browseImg");
+                                    fileinput.click();
+                                }
+
+                                function readURL(input) {
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            $('#itemImg').attr('src', e.target.result)
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                            </script>
+                        </div>
+
                         <!--Title-->
                         <p id="invalidTitle" style="color: red; font-size:14px; margin:0; margin-top:3px;"></p>
                         <input name="ItemTitle" id="ItemTitle" type="text" class="form-control" style="width:400px; margin-bottom: 5px;" placeholder="Tiêu đề" />
@@ -66,29 +92,7 @@
                         <p id="invalidItemDcrpt" style="color: red; font-size:14px; margin:0; margin-top:3px;"></p>
                         <textarea name="ItemDcrpt" id="ItemDcrpt" class="form-control" style="min-width:400px; max-width:400px; min-height:130px; max-height:130px; margin-bottom: 5px;" placeholder="Mô tả"></textarea>
 
-                        <!--Img-->
-                        <div>
-                            <img id="itemImg" src="" alt="" style="display:block; width: 150px; height: 180px;" />
-                            <input id="browseImg" type='file' onchange="readURL(this);" style="display:none;" />
-                            <button type="button" class="btn btn-default" onclick="HandleBrowseClick()">Chọn ảnh</button>
-                            <script>
-                                function HandleBrowseClick() {
-                                    var fileinput = document.getElementById("browseImg");
-                                    fileinput.click();
-                                }
-
-                                function readURL(input) {
-                                    if (input.files && input.files[0]) {
-                                        var reader = new FileReader();
-
-                                        reader.onload = function (e) {
-                                            $('#itemImg').attr('src', e.target.result)
-                                        };
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-                            </script>
-                        </div>
+                        
                         <script>
                             $(".modal-body").ready(function () {
                                 $("#priceDiv").hide();

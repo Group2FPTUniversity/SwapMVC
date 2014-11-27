@@ -67,7 +67,14 @@
         {
             <li>
                 <a href="~/Book/Details/@item.ID">
-                    <img src="@item.BookImage" class="img-thumbnail" />
+                    @{
+            var cateImg = "";
+            if (@item.BookImage != null)
+            {
+                cateImg = Url.Content(item.BookImage);
+            }
+                    }
+                    <img src="@cateImg" class="img-thumbnail" />
                     <h5>@item.Title</h5>
                     <h6>@item.Author</h6>
                 </a>

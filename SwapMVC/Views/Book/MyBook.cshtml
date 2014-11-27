@@ -3,16 +3,16 @@
 @{
     SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
     int ownerID = ViewBag.ownerBookID;
-    
+
     var user = db.Account.Where(a => a.ID == ownerID).FirstOrDefault();
-    
+
     ViewBag.Title = "Sách của " + user.Fullname;
 }
 
 @section Leftside {
     <section>
         @{
-            
+
             string imgUrl = "";
             if (user.Avatar != null)
             {
@@ -23,7 +23,7 @@
             <div class="swapper-intro" style="padding-left:15px; padding-right:15px;">
                 <div style="display:block; width: 200px; height: 200px; margin-top:10px;">
                     <img src="@imgUrl" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
-                </div>                
+                </div>
                 <div class="swapper-detail" style="margin:7px;">
                     <a href="">@user.Fullname</a>
                     <ul style="margin:0; padding-left: 10px; list-style:none;">
@@ -68,7 +68,7 @@
                 </span>
             }
         }
-        
+
     </h1>
     <!--grid-->
     @{
@@ -97,23 +97,34 @@
             }
         }
 
-}
+    }
     <ul class="book-list">
-        
+
         @foreach (var item in bookList)
         {
-            <li>                
+            <li>
                 <a href="~/Book/Details/@item.ID">
                     @{
-                        string bookImgUrl = "";
-                        if (@item.BookImage != null)
-                        {
-                            bookImgUrl = @Url.Content(@item.BookImage);
-                        }
+            string bookImgUrl = "";
+            if (@item.BookImage != null)
+            {
+                bookImgUrl = @Url.Content(@item.BookImage);
+            }
                     }
                     <img src="@bookImgUrl" class="img-thumbnail" />
-                    <h5>@item.Title</h5>
-                    <h6>@item.Author</h6>
+                    @{
+            if (item.BookStatus.Equals("Đã xác nhận đổi"))
+            {
+                <h5 style="color:black;">@item.Title</h5>
+                        <h6 style="color:black;">@item.Author</h6>
+            }
+            else
+            {
+                <h5>@item.Title</h5>
+                        <h6>@item.Author</h6>
+            }
+                    }
+
                 </a>
             </li>
         }

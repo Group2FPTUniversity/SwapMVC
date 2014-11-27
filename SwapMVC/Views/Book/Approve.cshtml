@@ -16,7 +16,14 @@
                     <div class="swapper-intro" style="border-radius:10px 10px 10px 10px;">
                         <h5>Được đăng bởi:</h5>
                         <div style="display:inline-block; width: 75px; height: 75px;">
-                            <img src="" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
+                            @{
+                                string imgUrl = "";
+                                if (user.Avatar != null)
+                                {
+                                    imgUrl = Url.Content(user.Avatar);
+                                }
+                            }
+                            <img src="@imgUrl" alt="Avatar" class="img-thumbnail" style="width:inherit; height:inherit;" />
                         </div>
                         <div class="swapper-detail">
                             <a href="~/Book/MyBook/@user.ID.ToString()">@user.Fullname</a>

@@ -4,10 +4,12 @@
     ViewBag.Title = @Model.Title;
 }
 
+@{
+    var user = Model.Account;
+}
+
 @section Leftside{
-    @{
-        var user = Model.Account;
-    }
+
     <div class="info-block">
         <div class="swapper-intro">
             <h5>Được đăng bởi:</h5>
@@ -78,22 +80,22 @@
                 <p style="height:60px; ">@Model.Descrptn</p>
             </div>
             @{
-    if (@Session["LogedUserID"] != null)
-    {
-        if (int.Parse(@Session["LogedUserID"].ToString()) == @Model.AccID)
-        {
-            <button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Xóa</button>
-        }
-                else
+                if (@Session["LogedUserID"] != null)
                 {
-                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-SwapRcmd" style="margin-left:25px;">Đề xuất đổi</button>
+                    if (int.Parse(@Session["LogedUserID"].ToString()) == @Model.AccID)
+                    {
+                        @*<button class="btn btn-default" type="button" data-toggle="modal" data-target="" style="margin-left:25px;">Xóa</button>*@
+                    }
+                    else
+                    {
+                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#Modal-SwapRcmd" style="margin-left:25px;">Đề xuất đổi</button>
                     <!-- Modal -->
-                    @Html.Partial("~/Views/SwapItem/Create.cshtml", new SwapMVC.Models.SwapItem(), new ViewDataDictionary { { "bookID", Model.ID } })
+                        @Html.Partial("~/Views/SwapItem/Create.cshtml", new SwapMVC.Models.SwapItem(), new ViewDataDictionary { { "bookID", Model.ID } })
+                    }
                 }
-                }
-                
+
             }
-            
+
         </div>
     </div>
 </div>
@@ -116,11 +118,11 @@
                 <div class="comment-block">
                     <div class="avatar-block">
                         @{
-                            string imgUrl = "";
-                            if (@item.Account.Avatar != null)
-                            {
-                                imgUrl = @Url.Content(@item.Account.Avatar);
-                            }
+            string imgUrl = "";
+            if (@item.Account.Avatar != null)
+            {
+                imgUrl = @Url.Content(@item.Account.Avatar);
+            }
                         }
                         <img src="@imgUrl" alt="Avatar" class="img-circle" />
                     </div>
@@ -140,17 +142,17 @@
                                     </div>
                                     <div class="modal-body" style="height:auto; padding-left:30px;">
                                         @{
-                                            if (@Session["LogedUserID"] != null)
-                                            {
-                                                @Html.Partial("~/Views/Comment/Create.cshtml", new SwapMVC.Models.Comment(), new ViewDataDictionary { { "itemID", @item.ID } })
-                                            }
+            if (@Session["LogedUserID"] != null)
+            {
+                @Html.Partial("~/Views/Comment/Create.cshtml", new SwapMVC.Models.Comment(), new ViewDataDictionary { { "itemID", @item.ID } })
+            }
                                         }
                                         @{
-                                            var commentDB = db.Comment.Where(x => x.SwapItemID == @item.ID).OrderByDescending(x => x.CommentDate).ToList();
-                                            if (@commentDB.Count == 0)
-                                            {
-                                                <h5 style="font-style:italic;">Chưa có bình luận nào.</h5>
-                                            }
+            var commentDB = db.Comment.Where(x => x.SwapItemID == @item.ID).OrderByDescending(x => x.CommentDate).ToList();
+            if (@commentDB.Count == 0)
+            {
+                <h5 style="font-style:italic;">Chưa có bình luận nào.</h5>
+            }
                                         }
                                         @foreach (var cmt in commentDB)
                                         {
@@ -172,8 +174,15 @@
                                 </div>
                             </div>
                         </div>
-
-                        <ul>
+                        @{
+            string itemImgUrl = "";
+            if (@item.ItemImage != null)
+            {
+                itemImgUrl = Url.Content(item.ItemImage);
+            }
+                        }
+                        <img src="@itemImgUrl" alt="Ảnh minh họa" class="img-thumbnail" style="display:inline-block; width:80px; height:100px; vertical-align:top;" />
+                        <ul style="display:inline-block; vertical-align:top;">
                             <li>
                                 Hình thức: @item.ItemType
                             </li>
@@ -192,6 +201,25 @@
                         </ul>
                         <h6 style="font-style:italic;">Ngày đăng: @item.PostDate</h6>
                     </div>
+                    @{
+            if (@Session["LogedUserID"] != null && int.Parse(@Session["LogedUserID"].ToString()) == user.ID)
+            {
+                if (item.ItemStatus.Equals("Đang chờ"))
+                {
+                    <button id="confirm-@item.ID" class="btn bg-primary" style="float:right; margin-top:10px;">Xác nhận đổi</button>
+                    <script>
+                        $(document).on("click", "#confirm-@item.ID", function () {
+                            document.location = '@Url.Action("Create","Transaction")' + '?itemID=' + @item.ID + '&bookID=' + @item.BookID;
+                        });
+                    </script>
+                }
+                else if (item.ItemStatus.Equals("Đã xác nhận đổi"))
+                {
+                    <h4 style="float:right; margin-top:10px;"><span class="glyphicon glyphicon-ok"></span> Đã xác nhận đổi</h4>
+                }
+
+            }
+}
 
                 </div>
             </li>

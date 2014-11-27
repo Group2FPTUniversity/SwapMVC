@@ -50,8 +50,17 @@ namespace SwapMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SwapItem swapitem)
+        public ActionResult Create(SwapItem swapitem, HttpPostedFileBase file)
         {
+            Guid guid = Guid.NewGuid();
+            String id = guid.ToString();
+            if (file != null)
+            {
+                file.SaveAs(HttpContext.Server.MapPath("~/UserImg/Swap/") + id + file.FileName);
+
+                swapitem.ItemImage = "~/UserImg/Swap/" + id + file.FileName;
+
+            }
             if (ModelState.IsValid)
             {
                 db.SwapItem.Add(swapitem);

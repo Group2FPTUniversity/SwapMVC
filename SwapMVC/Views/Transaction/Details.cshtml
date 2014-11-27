@@ -1,0 +1,36 @@
+﻿@model SwapMVC.Models.SwapTransaction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>SwapTransaction</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Book.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Book.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SwapItem.ItemType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SwapItem.ItemType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SwapDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SwapDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
