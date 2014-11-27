@@ -79,6 +79,12 @@ namespace SwapMVC.Controllers
             return View(list);
         }
 
+        public ActionResult Search(String search)
+        {
+            var list = db.Book.Where(book => book.Title.Contains(search)).ToList();
+            return View(list);
+        }
+
         //
         // GET: /Book/Create
 
