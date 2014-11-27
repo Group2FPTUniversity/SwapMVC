@@ -264,7 +264,7 @@ body{
     background-color: white;
     vertical-align: top;
     width: inherit;
-    height: auto;
+    height: 165px;
     margin: 0;
     padding: 0;
     padding-left: 7px;
@@ -337,7 +337,7 @@ body{
 .accMenuList {
     list-style: none;
     margin: 0;
-    margin-top: 15px;
+    margin-top: 125px;
     padding: 0;
     text-align: left;
 }
@@ -392,7 +392,7 @@ body{
 
 
 /*BOOK APPROVE*/
-    
+     
 .intro-block-approve {
     display: block;
     width: 900px;
@@ -409,7 +409,7 @@ body{
     margin-bottom: 5px;
     padding: 5px;
     width: 900px;
-    height: 180px;
+    height: 200px;
     border-radius: 20px 20px 20px 20px;
     background-color:white;
 }
@@ -428,16 +428,72 @@ body{
     .book-intro-approve .book-detail-approve {
         display: inline-block;
         vertical-align: top;
-        width: 630px;
-        height: auto;
+        width: 640px;
+        height: 185px;
         margin: 0;
         margin-left: 5px;
+        margin-right: 5px;
+        padding: 0;
+        text-overflow: inherit;
+        white-space: initial;
+        overflow: hidden;
+    }
+
+        .book-intro-approve .book-detail-approve li {
+            padding-bottom: 7px;
+            overflow-wrap:break-word;
+        }
+
+
+/*BOOK SEARCH*/
+     
+.intro-block-search {
+    display: block;
+    width: 900px;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: #45629c;
+}
+
+.book-intro-search {
+    display: inline-block;
+    margin:0;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 900px;
+    height: 200px;
+    border-radius: 20px 20px 20px 20px;
+    background-color:white;
+}
+
+    .book-intro-search .book-img-search {
+        display: inline-block;
+        vertical-align:central;
+        width: 120px;
+        height: 160px;
+        margin: 5px;
         margin-right: 5px;
         padding: 0;
         
     }
 
-        .book-intro-approve .book-detail-approve li {
+    .book-intro-search .book-detail-search {
+        display: inline-block;
+        vertical-align: top;
+        width: 740px;
+        height: 185px;
+        margin: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+        padding: 0;
+        text-overflow: inherit;
+        white-space: initial;
+        overflow: hidden;
+    }
+
+        .book-intro-search .book-detail-search li {
             padding-bottom: 7px;
             overflow-wrap:break-word;
         }
