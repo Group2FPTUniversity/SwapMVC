@@ -54,6 +54,15 @@ namespace SwapMVC.Controllers
         {
             Guid guid = Guid.NewGuid();
             String id = guid.ToString();
+
+            Notify noti = new Notify();
+            noti.SubAcc = swapitem.AccID;
+            noti.BookID = swapitem.BookID;
+            noti.Date = DateTime.Now;
+
+            Book book = db.Book.Find(noti.BookID);
+            noti.AccID = book.AccID;
+            noti.Status = "SwapItem";
             if (file != null)
             {
                 file.SaveAs(HttpContext.Server.MapPath("~/UserImg/Swap/") + id + file.FileName);
@@ -63,6 +72,7 @@ namespace SwapMVC.Controllers
             }
             if (ModelState.IsValid)
             {
+                db.Notify.Add(noti);
                 db.SwapItem.Add(swapitem);
                 db.SaveChanges();
                 return RedirectToAction("Details/" + swapitem.BookID, "Book");

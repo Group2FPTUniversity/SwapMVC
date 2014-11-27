@@ -54,6 +54,16 @@ namespace SwapMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                Notify noti = new Notify();
+                SwapItem swapItem = db.SwapItem.Find(comment.SwapItemID);
+                noti.SubAcc = swapItem.AccID;
+                noti.BookID = swapItem.BookID;
+                noti.Date = DateTime.Now;
+
+                Book book = db.Book.Find(noti.BookID);
+                noti.AccID = book.AccID;
+                noti.Status = "Comment";
+                db.Notify.Add(noti);
                 db.Comment.Add(comment);
                 db.SaveChanges();
                 ViewBag.AccID = new SelectList(db.Account, "ID", "Email", comment.AccID);
