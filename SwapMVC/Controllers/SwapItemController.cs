@@ -62,7 +62,7 @@ namespace SwapMVC.Controllers
 
             Book book = db.Book.Find(noti.BookID);
             noti.AccID = book.AccID;
-            noti.Status = "SwapItem";
+            noti.Status = "đã đề xuất đổi";
             if (file != null)
             {
                 file.SaveAs(HttpContext.Server.MapPath("~/UserImg/Swap/") + id + file.FileName);

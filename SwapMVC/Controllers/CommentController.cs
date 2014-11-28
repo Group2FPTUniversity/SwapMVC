@@ -54,16 +54,48 @@ namespace SwapMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                Notify noti = new Notify();
                 SwapItem swapItem = db.SwapItem.Find(comment.SwapItemID);
-                noti.SubAcc = swapItem.AccID;
-                noti.BookID = swapItem.BookID;
-                noti.Date = DateTime.Now;
+                List<Comment> cmtList = swapItem.Comment.ToList();
+                List<Account> accList = new List<Account>();
+                foreach (var item in cmtList)
+                {
+                    if (!accList.Contains(item.Account))
+                    {
+                        accList.Add(item.Account);
+                    }
+                }
+                foreach (var item in accList)
+                {
+                    if (comment.AccID != item.ID)
+                    {
+                        Notify n = new Notify();
+                        n.AccID = item.ID;
+                        n.BookID = swapItem.BookID;
+                        n.SubAcc = comment.AccID;
+                        n.Date = DateTime.Now;
+                        n.Status = "đã bình luận";
+                        db.Notify.Add(n);
+                    }
+                }
 
-                Book book = db.Book.Find(noti.BookID);
-                noti.AccID = book.AccID;
-                noti.Status = "Comment";
-                db.Notify.Add(noti);
+                Notify n2 = new Notify();
+                n2.AccID = swapItem.AccID;
+                n2.BookID = swapItem.BookID;
+                n2.SubAcc = comment.AccID;
+                n2.Date = DateTime.Now;
+                n2.Status = "đã bình luận";
+                db.Notify.Add(n2);
+                //SwapItem swapItem = db.SwapItem.Find(comment.SwapItemID);
+                
+                //noti.BookID = swapItem.BookID;
+                //noti.Date = DateTime.Now;
+
+                //Book book = db.Book.Find(noti.BookID);
+                //noti.AccID = book.AccID;
+                //noti.SubAcc = int.Parse(Session["LogedUserID"].ToString());
+                //noti.Status = "Comment";
+                //db.Notify.Add(noti);
+
                 db.Comment.Add(comment);
                 db.SaveChanges();
                 ViewBag.AccID = new SelectList(db.Account, "ID", "Email", comment.AccID);

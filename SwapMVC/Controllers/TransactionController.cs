@@ -51,6 +51,7 @@ namespace SwapMVC.Controllers
         {
             try
             {
+                //add transaction
                 SwapTransaction trans = new SwapTransaction();
                 trans.BookID = int.Parse(bookID);
                 trans.SwapItemID = int.Parse(itemID);
@@ -58,16 +59,37 @@ namespace SwapMVC.Controllers
 
                 db.SwapTransaction.Add(trans);
 
+                //accept noti
                 var swapItem = db.SwapItem.Find(int.Parse(itemID));
+                Notify noti = new Notify();
+                noti.AccID = swapItem.AccID;
+                noti.BookID = swapItem.BookID;
+                noti.Date = DateTime.Now;
+
+                Book book = db.Book.Find(noti.BookID);
+                noti.SubAcc = book.AccID;
+                noti.Status = "đã chấp nhận đổi";
+                db.Notify.Add(noti);
+
                 swapItem.ItemStatus = "Đã xác nhận đổi";
                 swapItem.Book.BookStatus = "Đã xác nhận đổi";
-                foreach (var item in swapItem.Book.SwapItem.Where(i => i.ID!=swapItem.ID).ToList())
+                foreach (var item in swapItem.Book.SwapItem.Where(i => i.ID != swapItem.ID).ToList())
                 {
+                    //reject noti
+                    Notify rNoti = new Notify();
+                    rNoti.SubAcc = book.AccID;
+                    rNoti.Status = "đã từ chối đổi";
+                    rNoti.AccID = item.AccID;
+                    rNoti.Date = DateTime.Now;
+                    rNoti.BookID = swapItem.BookID;
+                    db.Notify.Add(rNoti);
+
+                    //reject stt
                     item.ItemStatus = "Đã từ chối";
                 }
 
                 db.SaveChanges();
-                
+
             }
             catch (Exception e)
             {
