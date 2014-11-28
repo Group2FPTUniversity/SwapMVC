@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<SwapMVC.Models.Notify>
 
+@{
+    var list = Model.Where(n => n.AccID == int.Parse(@Session["LogedUserID"].ToString())).Take(8).ToList();
+}
 <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width:830px;margin-top:0;">
+    <div class="modal-dialog" style="width:600px;margin-top:0;">
         <div class="modal-content" style=" margin:5px">
             <div class="modal-header" style="border:none;">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -13,37 +16,27 @@
 
                 }
 
-                @foreach (var item in Model)
+                @foreach (var item in list)
                 {
                     var user = db.Account.Find(item.SubAcc);
+                    var user2 = db.Account.Find(item.AccID);
                     var book = db.Book.Find(item.BookID);
-                    if (@Session["LogedUserID"].ToString() == item.AccID.ToString())
-                    {
-                        if (item.Status == "SwapItem")
-                        {
-                            <ul>
-                                <li>
-                                    > @user.Fullname đã yêu cầu đổi sách: <a href="~/Book/Details/@book.ID" style="color:blue">@book.Title </a>
-                                </li>
-                            </ul>
-                        }
-                        if (item.Status == "Comment")
-                        {
-                            <ul>
-                                <li>
-                                    > @user.Fullname đã bình luận tại sách: <a href="~/Book/Details/@book.ID" style="color:blue">@book.Title </a>
-                                </li>
-                            </ul>
-                        }
 
-                    }
-
+                  
+                        <ul style="padding:0px; border-bottom:1px solid #cfcfcf; margin-left:20px; margin-right:20px; margin-bottom:8px">
+                            <li style="padding:0px;">
+                                <span style="display:inline-block; max-width: 470px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                    @user.Fullname @item.Status sách: <a href="~/Book/Details/@book.ID" style="color:blue">@book.Title </a>
+                                </span>
+                                
+                                <h5 style="font-style:italic; font-weight:lighter;  margin:5px;margin-left:20px;">  @item.Date</h5>
+                            </li>
+                        </ul>
+                    
                 }
-
 
             </div>
 
         </div>
     </div>
 </div>
-

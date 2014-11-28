@@ -54,8 +54,10 @@
                             }
                             else
                             {
+                                SwapMVC.Models.SwapDBEntities db = new SwapMVC.Models.SwapDBEntities();
+                                var acc = db.Account.Find(int.Parse(@Session["LogedUserID"].ToString()));
                                 <li> 
-                                    Chào <a href="~/Book/MyBook/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString()</a>
+                                    Chào <a href="~/Book/MyBook/@Session["LogedUserID"]">@acc.Fullname</a>
                                     <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
                                 </li>
                             }
@@ -87,10 +89,22 @@
                 </div>
                 <div class="block">
                     <span style="padding:10px">
-                        <a href="~/Book/MyBook/@Session["LogedUserID"]">
-                            <h3>Sách của tôi</h3>
-                            Hãy chia sẻ bộ sách của bản thân với mọi người để việc đọc sách trở nên ý nghĩa hơn...
-                        </a>
+                        @if (@Session["LogedUserID"] == null)
+                        {
+                            <a href="" data-toggle="modal" data-target="#loginModal">
+                                <h3>Sách của tôi</h3>
+                                Hãy chia sẻ bộ sách của bản thân với mọi người để việc đọc sách trở nên ý nghĩa hơn...
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="~/Book/MyBook/@Session["LogedUserID"]">
+                                <h3>Sách của tôi</h3>
+                                Hãy chia sẻ bộ sách của bản thân với mọi người để việc đọc sách trở nên ý nghĩa hơn...
+                            </a>
+                        }
+                       
+                        
                     </span>
                     <span>
                         <img style="width:inherit; height:inherit;" src="~/Images/pages2.jpg" />

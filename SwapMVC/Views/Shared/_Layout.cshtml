@@ -52,7 +52,7 @@
                             if (user.AccType.Equals("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a href="~/Book/Approve">Kiểm duyệt sách</a>
+                                    <a href="~/Book/Approve">Kiểm duyệt</a>
                                 </li>
                             }
                         }
@@ -83,7 +83,7 @@
             </div>
             <ul class="nav-list">
                 @{
-                    if (@Session["LogedUserFullname"] == null)
+                    if (@Session["LogedUserID"] == null)
                     {
                         <li style="padding:30px"><a href="" data-toggle="modal" data-target="#loginModal">Đăng nhập</a></li>
                         @Html.Partial("~/Views/User/Login.cshtml", new SwapMVC.Models.Account())
@@ -92,15 +92,21 @@
                     }
                     else
                     {
-                        <li>
-                            <a href="~/User/Edit/@Session["LogedUserID"]">@Session["LogedUserFullname"].ToString() </a>
-                            <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
+                        var acc = db.Account.Find(int.Parse(@Session["LogedUserID"].ToString()));
+                        <li >
+                            <div style="display:inline-block; max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                <a href="~/User/Edit/@Session["LogedUserID"]">@acc.Fullname </a>
+                            </div>
+                            <div style="display:inline-block; max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                <a href="~/User/LogOut" style="font-style:italic; font-weight:normal; text-decoration:underline;">(Đăng xuất)</a>
+                            </div>
+                            
                         </li>
                        
-                        <li style="padding:30px"><a href="" data-toggle="modal" data-target="#notifyModal">Thông báo</a></li>
+                        <li style="padding:5px"><a href="" data-toggle="modal" data-target="#notifyModal"><h4 style="display:inline-block;"><span class="glyphicon glyphicon-envelope"></span></h4></a></li>
                       
                         
-                        var notify = db.Notify.ToList().OrderByDescending(d=>d.Date).Take(10);
+                        var notify = db.Notify.OrderByDescending(d => d.Date).ToList();
                         @Html.Partial("Notify2", notify)
 
                     }
