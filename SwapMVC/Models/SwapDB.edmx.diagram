@@ -5,21 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="07f326904e2e448a9905921d55d5168b" Name="Diagram1">
-        <EntityTypeShape EntityType="SwapDBModel.Account" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SwapDBModel.Book" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SwapDBModel.Category" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="SwapDBModel.Comment" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SwapDBModel.SwapItem" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="SwapDBModel.SwapTransaction" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SwapDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.875" IsExpanded="true" />
-        <AssociationConnector Association="SwapDBModel.FK__Book__AccID__32E0915F" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__Comment__AccID__37A5467C" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__SwapItem__AccID__35BCFE0A" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__Book__CategoryID__33D4B598" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__SwapItem__BookID__34C8D9D1" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__SwapTrans__BookI__38996AB5" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__Comment__SwapIte__36B12243" ManuallyRouted="false" />
-        <AssociationConnector Association="SwapDBModel.FK__SwapTrans__SwapI__398D8EEE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SwapDBModel.Account" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="SwapDBModel.Book" Width="1.5" PointX="3" PointY="2.625" />
+        <EntityTypeShape EntityType="SwapDBModel.Category" Width="1.5" PointX="0.75" PointY="9.125" />
+        <EntityTypeShape EntityType="SwapDBModel.Comment" Width="1.5" PointX="7.5" PointY="0.75" />
+        <EntityTypeShape EntityType="SwapDBModel.Notify" Width="1.5" PointX="5.75" PointY="8" />
+        <EntityTypeShape EntityType="SwapDBModel.SwapItem" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="SwapDBModel.SwapTransaction" Width="1.5" PointX="7.5" PointY="3.875" />
+        <EntityTypeShape EntityType="SwapDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="9" />
+        <AssociationConnector Association="SwapDBModel.FK__Book__AccID__32E0915F" />
+        <AssociationConnector Association="SwapDBModel.FK__Comment__AccID__37A5467C" />
+        <AssociationConnector Association="SwapDBModel.FK__SwapItem__AccID__35BCFE0A" />
+        <AssociationConnector Association="SwapDBModel.FK__Book__CategoryID__33D4B598" />
+        <AssociationConnector Association="SwapDBModel.FK__SwapItem__BookID__34C8D9D1" />
+        <AssociationConnector Association="SwapDBModel.FK__SwapTrans__BookI__38996AB5" />
+        <AssociationConnector Association="SwapDBModel.FK__Comment__SwapIte__36B12243" />
+        <AssociationConnector Association="SwapDBModel.FK__SwapTrans__SwapI__398D8EEE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

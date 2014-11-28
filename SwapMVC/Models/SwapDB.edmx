@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SwapDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SwapDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
@@ -26,12 +26,12 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AccID" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Author" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="Publisher" Type="nvarchar" MaxLength="30" />
           <Property Name="PblYear" Type="numeric" Precision="4" Scale="0" />
-          <Property Name="Descrptn" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descrptn" Type="nvarchar" MaxLength="600" />
           <Property Name="Price" Type="int" />
           <Property Name="BookImage" Type="varchar" MaxLength="255" />
           <Property Name="BookStatus" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -45,7 +45,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -56,6 +56,17 @@
           <Property Name="AccID" Type="int" Nullable="false" />
           <Property Name="Content" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CommentDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notify">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccID" Type="int" Nullable="false" />
+          <Property Name="SubAcc" Type="int" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="SwapItem">
           <Key>
@@ -352,6 +363,7 @@
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notify" EntityType="Self.Notify" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SwapItem" EntityType="Self.SwapItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SwapTransaction" EntityType="Self.SwapTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -388,251 +400,13 @@
             <End Role="SwapTransaction" EntitySet="SwapTransaction" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SwapDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Account">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Passwd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Fullname" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="Boolean" />
-          <Property Name="Phone" Type="Int32" />
-          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UsrAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="AccType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Book__AccID__32E0915F" FromRole="Account" ToRole="Book" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__AccID__37A5467C" FromRole="Account" ToRole="Comment" />
-          <NavigationProperty Name="SwapItem" Relationship="Self.FK__SwapItem__AccID__35BCFE0A" FromRole="Account" ToRole="SwapItem" />
-        </EntityType>
-        <EntityType Name="Book">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Author" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="PblYear" Type="Decimal" Precision="4" Scale="0" />
-          <Property Name="Descrptn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Int32" />
-          <Property Name="BookImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BookStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DetailAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DueDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="Self.FK__Book__AccID__32E0915F" FromRole="Book" ToRole="Account" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Book__CategoryID__33D4B598" FromRole="Book" ToRole="Category" />
-          <NavigationProperty Name="SwapItem" Relationship="Self.FK__SwapItem__BookID__34C8D9D1" FromRole="Book" ToRole="SwapItem" />
-          <NavigationProperty Name="SwapTransaction" Relationship="Self.FK__SwapTrans__BookI__38996AB5" FromRole="Book" ToRole="SwapTransaction" />
-        </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__Book__CategoryID__33D4B598" FromRole="Category" ToRole="Book" />
-        </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SwapItemID" Type="Int32" Nullable="false" />
-          <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CommentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="Self.FK__Comment__AccID__37A5467C" FromRole="Comment" ToRole="Account" />
-          <NavigationProperty Name="SwapItem" Relationship="Self.FK__Comment__SwapIte__36B12243" FromRole="Comment" ToRole="SwapItem" />
-        </EntityType>
-        <EntityType Name="SwapItem">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookID" Type="Int32" Nullable="false" />
-          <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="ItemType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ItemTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ItemDcrpt" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ItemImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Int32" />
-          <Property Name="ItemStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Account" Relationship="Self.FK__SwapItem__AccID__35BCFE0A" FromRole="SwapItem" ToRole="Account" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__SwapItem__BookID__34C8D9D1" FromRole="SwapItem" ToRole="Book" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__SwapIte__36B12243" FromRole="SwapItem" ToRole="Comment" />
-          <NavigationProperty Name="SwapTransaction" Relationship="Self.FK__SwapTrans__SwapI__398D8EEE" FromRole="SwapItem" ToRole="SwapTransaction" />
-        </EntityType>
-        <EntityType Name="SwapTransaction">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookID" Type="Int32" Nullable="false" />
-          <Property Name="SwapItemID" Type="Int32" Nullable="false" />
-          <Property Name="SwapDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Book" Relationship="Self.FK__SwapTrans__BookI__38996AB5" FromRole="SwapTransaction" ToRole="Book" />
-          <NavigationProperty Name="SwapItem" Relationship="Self.FK__SwapTrans__SwapI__398D8EEE" FromRole="SwapTransaction" ToRole="SwapItem" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <Association Name="FK__Book__AccID__32E0915F">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="AccID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Comment__AccID__37A5467C">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="AccID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SwapItem__AccID__35BCFE0A">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="SwapItem" Type="Self.SwapItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SwapItem">
-              <PropertyRef Name="AccID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Book__CategoryID__33D4B598">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SwapItem__BookID__34C8D9D1">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="SwapItem" Type="Self.SwapItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SwapItem">
-              <PropertyRef Name="BookID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SwapTrans__BookI__38996AB5">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="SwapTransaction" Type="Self.SwapTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SwapTransaction">
-              <PropertyRef Name="BookID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Comment__SwapIte__36B12243">
-          <End Role="SwapItem" Type="Self.SwapItem" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SwapItem">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="SwapItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__SwapTrans__SwapI__398D8EEE">
-          <End Role="SwapItem" Type="Self.SwapItem" Multiplicity="1" />
-          <End Role="SwapTransaction" Type="Self.SwapTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SwapItem">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SwapTransaction">
-              <PropertyRef Name="SwapItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SwapDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Account" EntityType="Self.Account" />
-          <EntitySet Name="Book" EntityType="Self.Book" />
-          <EntitySet Name="Category" EntityType="Self.Category" />
-          <EntitySet Name="Comment" EntityType="Self.Comment" />
-          <EntitySet Name="SwapItem" EntityType="Self.SwapItem" />
-          <EntitySet Name="SwapTransaction" EntityType="Self.SwapTransaction" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK__Book__AccID__32E0915F" Association="Self.FK__Book__AccID__32E0915F">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comment__AccID__37A5467C" Association="Self.FK__Comment__AccID__37A5467C">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SwapItem__AccID__35BCFE0A" Association="Self.FK__SwapItem__AccID__35BCFE0A">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="SwapItem" EntitySet="SwapItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Book__CategoryID__33D4B598" Association="Self.FK__Book__CategoryID__33D4B598">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SwapItem__BookID__34C8D9D1" Association="Self.FK__SwapItem__BookID__34C8D9D1">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="SwapItem" EntitySet="SwapItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SwapTrans__BookI__38996AB5" Association="Self.FK__SwapTrans__BookI__38996AB5">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="SwapTransaction" EntitySet="SwapTransaction" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comment__SwapIte__36B12243" Association="Self.FK__Comment__SwapIte__36B12243">
-            <End Role="SwapItem" EntitySet="SwapItem" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SwapTrans__SwapI__398D8EEE" Association="Self.FK__SwapTrans__SwapI__398D8EEE">
-            <End Role="SwapItem" EntitySet="SwapItem" />
-            <End Role="SwapTransaction" EntitySet="SwapTransaction" />
-          </AssociationSet>
           <FunctionImport Name="Account_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Account_Insert">
             <Parameter Name="Email" Mode="In" Type="String" />
@@ -659,7 +433,7 @@
             <Parameter Name="AccType" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Book_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Book_Insert">
             <Parameter Name="AccID" Mode="In" Type="Int32" />
@@ -695,17 +469,17 @@
             <Parameter Name="DueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Category_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Category_Insert">
-            <Parameter Name="Name" Mode="In" Type="String" />
+          <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Category_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
             <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Comment_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Comment_Insert">
             <Parameter Name="SwapItemID" Mode="In" Type="Int32" />
@@ -751,7 +525,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="SwapItem_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SwapItem_Insert">
             <Parameter Name="BookID" Mode="In" Type="Int32" />
@@ -777,7 +551,7 @@
             <Parameter Name="PostDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="SwapTransaction_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SwapTransaction_Insert">
             <Parameter Name="BookID" Mode="In" Type="Int32" />
@@ -790,6 +564,46 @@
             <Parameter Name="SwapItemID" Mode="In" Type="Int32" />
             <Parameter Name="SwapDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="Account" EntityType="SwapDBModel.Account" />
+          <EntitySet Name="Book" EntityType="SwapDBModel.Book" />
+          <EntitySet Name="Category" EntityType="SwapDBModel.Category" />
+          <EntitySet Name="Comment" EntityType="SwapDBModel.Comment" />
+          <EntitySet Name="Notify" EntityType="SwapDBModel.Notify" />
+          <EntitySet Name="SwapItem" EntityType="SwapDBModel.SwapItem" />
+          <EntitySet Name="SwapTransaction" EntityType="SwapDBModel.SwapTransaction" />
+          <EntitySet Name="sysdiagrams" EntityType="SwapDBModel.sysdiagrams" />
+          <AssociationSet Name="FK__Book__AccID__32E0915F" Association="SwapDBModel.FK__Book__AccID__32E0915F">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__AccID__37A5467C" Association="SwapDBModel.FK__Comment__AccID__37A5467C">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SwapItem__AccID__35BCFE0A" Association="SwapDBModel.FK__SwapItem__AccID__35BCFE0A">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="SwapItem" EntitySet="SwapItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__CategoryID__33D4B598" Association="SwapDBModel.FK__Book__CategoryID__33D4B598">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SwapItem__BookID__34C8D9D1" Association="SwapDBModel.FK__SwapItem__BookID__34C8D9D1">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="SwapItem" EntitySet="SwapItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SwapTrans__BookI__38996AB5" Association="SwapDBModel.FK__SwapTrans__BookI__38996AB5">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="SwapTransaction" EntitySet="SwapTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__SwapIte__36B12243" Association="SwapDBModel.FK__Comment__SwapIte__36B12243">
+            <End Role="SwapItem" EntitySet="SwapItem" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SwapTrans__SwapI__398D8EEE" Association="SwapDBModel.FK__SwapTrans__SwapI__398D8EEE">
+            <End Role="SwapItem" EntitySet="SwapItem" />
+            <End Role="SwapTransaction" EntitySet="SwapTransaction" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -802,105 +616,221 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Passwd" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Fullname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UsrAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AccType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Book" Relationship="SwapDBModel.FK__Book__AccID__32E0915F" FromRole="Account" ToRole="Book" />
+          <NavigationProperty Name="Comment" Relationship="SwapDBModel.FK__Comment__AccID__37A5467C" FromRole="Account" ToRole="Comment" />
+          <NavigationProperty Name="SwapItem" Relationship="SwapDBModel.FK__SwapItem__AccID__35BCFE0A" FromRole="Account" ToRole="SwapItem" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Publisher" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PblYear" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="Descrptn" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="BookImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BookStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DetailAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="SwapDBModel.FK__Book__AccID__32E0915F" FromRole="Book" ToRole="Account" />
+          <NavigationProperty Name="Category" Relationship="SwapDBModel.FK__Book__CategoryID__33D4B598" FromRole="Book" ToRole="Category" />
+          <NavigationProperty Name="SwapItem" Relationship="SwapDBModel.FK__SwapItem__BookID__34C8D9D1" FromRole="Book" ToRole="SwapItem" />
+          <NavigationProperty Name="SwapTransaction" Relationship="SwapDBModel.FK__SwapTrans__BookI__38996AB5" FromRole="Book" ToRole="SwapTransaction" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Book" Relationship="SwapDBModel.FK__Book__CategoryID__33D4B598" FromRole="Category" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SwapItemID" Type="Int32" Nullable="false" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CommentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="SwapDBModel.FK__Comment__AccID__37A5467C" FromRole="Comment" ToRole="Account" />
+          <NavigationProperty Name="SwapItem" Relationship="SwapDBModel.FK__Comment__SwapIte__36B12243" FromRole="Comment" ToRole="SwapItem" />
+        </EntityType>
+        <EntityType Name="Notify">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="SubAcc" Type="Int32" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SwapItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="ItemType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ItemTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDcrpt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ItemImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="ItemStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Account" Relationship="SwapDBModel.FK__SwapItem__AccID__35BCFE0A" FromRole="SwapItem" ToRole="Account" />
+          <NavigationProperty Name="Book" Relationship="SwapDBModel.FK__SwapItem__BookID__34C8D9D1" FromRole="SwapItem" ToRole="Book" />
+          <NavigationProperty Name="Comment" Relationship="SwapDBModel.FK__Comment__SwapIte__36B12243" FromRole="SwapItem" ToRole="Comment" />
+          <NavigationProperty Name="SwapTransaction" Relationship="SwapDBModel.FK__SwapTrans__SwapI__398D8EEE" FromRole="SwapItem" ToRole="SwapTransaction" />
+        </EntityType>
+        <EntityType Name="SwapTransaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="SwapItemID" Type="Int32" Nullable="false" />
+          <Property Name="SwapDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Book" Relationship="SwapDBModel.FK__SwapTrans__BookI__38996AB5" FromRole="SwapTransaction" ToRole="Book" />
+          <NavigationProperty Name="SwapItem" Relationship="SwapDBModel.FK__SwapTrans__SwapI__398D8EEE" FromRole="SwapTransaction" ToRole="SwapItem" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Book__AccID__32E0915F">
+          <End Type="SwapDBModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="SwapDBModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AccID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__AccID__37A5467C">
+          <End Type="SwapDBModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="SwapDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="AccID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SwapItem__AccID__35BCFE0A">
+          <End Type="SwapDBModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="SwapDBModel.SwapItem" Role="SwapItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SwapItem">
+              <PropertyRef Name="AccID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__CategoryID__33D4B598">
+          <End Type="SwapDBModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="SwapDBModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SwapItem__BookID__34C8D9D1">
+          <End Type="SwapDBModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="SwapDBModel.SwapItem" Role="SwapItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SwapItem">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SwapTrans__BookI__38996AB5">
+          <End Type="SwapDBModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="SwapDBModel.SwapTransaction" Role="SwapTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SwapTransaction">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__SwapIte__36B12243">
+          <End Type="SwapDBModel.SwapItem" Role="SwapItem" Multiplicity="1" />
+          <End Type="SwapDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SwapItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="SwapItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SwapTrans__SwapI__398D8EEE">
+          <End Type="SwapDBModel.SwapItem" Role="SwapItem" Multiplicity="1" />
+          <End Type="SwapDBModel.SwapTransaction" Role="SwapTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SwapItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SwapTransaction">
+              <PropertyRef Name="SwapItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SwapDBModelStoreContainer" CdmEntityContainer="SwapDBEntities">
-          <EntitySetMapping Name="Account">
-            <EntityTypeMapping TypeName="SwapDBModel.Account">
-              <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Passwd" ColumnName="Passwd" />
-                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="UsrAddress" ColumnName="UsrAddress" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="AccType" ColumnName="AccType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Book">
-            <EntityTypeMapping TypeName="SwapDBModel.Book">
-              <MappingFragment StoreEntitySet="Book">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
-                <ScalarProperty Name="PblYear" ColumnName="PblYear" />
-                <ScalarProperty Name="Descrptn" ColumnName="Descrptn" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="BookImage" ColumnName="BookImage" />
-                <ScalarProperty Name="BookStatus" ColumnName="BookStatus" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="DetailAddr" ColumnName="DetailAddr" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
-                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Category">
-            <EntityTypeMapping TypeName="SwapDBModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comment">
-            <EntityTypeMapping TypeName="SwapDBModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SwapItemID" ColumnName="SwapItemID" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SwapItem">
-            <EntityTypeMapping TypeName="SwapDBModel.SwapItem">
-              <MappingFragment StoreEntitySet="SwapItem">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BookID" ColumnName="BookID" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
-                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
-                <ScalarProperty Name="ItemTitle" ColumnName="ItemTitle" />
-                <ScalarProperty Name="ItemDcrpt" ColumnName="ItemDcrpt" />
-                <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ItemStatus" ColumnName="ItemStatus" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SwapTransaction">
-            <EntityTypeMapping TypeName="SwapDBModel.SwapTransaction">
-              <MappingFragment StoreEntitySet="SwapTransaction">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BookID" ColumnName="BookID" />
-                <ScalarProperty Name="SwapItemID" ColumnName="SwapItemID" />
-                <ScalarProperty Name="SwapDate" ColumnName="SwapDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SwapDBModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Account_Delete" FunctionName="SwapDBModel.Store.Account_Delete" />
           <FunctionImportMapping FunctionImportName="Account_Insert" FunctionName="SwapDBModel.Store.Account_Insert" />
           <FunctionImportMapping FunctionImportName="Account_Update" FunctionName="SwapDBModel.Store.Account_Update" />
@@ -943,6 +873,111 @@
           <FunctionImportMapping FunctionImportName="SwapTransaction_Delete" FunctionName="SwapDBModel.Store.SwapTransaction_Delete" />
           <FunctionImportMapping FunctionImportName="SwapTransaction_Insert" FunctionName="SwapDBModel.Store.SwapTransaction_Insert" />
           <FunctionImportMapping FunctionImportName="SwapTransaction_Update" FunctionName="SwapDBModel.Store.SwapTransaction_Update" />
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="SwapDBModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccType" ColumnName="AccType" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="UsrAddress" ColumnName="UsrAddress" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Passwd" ColumnName="Passwd" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="SwapDBModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="DetailAddr" ColumnName="DetailAddr" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="BookStatus" ColumnName="BookStatus" />
+                <ScalarProperty Name="BookImage" ColumnName="BookImage" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Descrptn" ColumnName="Descrptn" />
+                <ScalarProperty Name="PblYear" ColumnName="PblYear" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="SwapDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="SwapDBModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="SwapItemID" ColumnName="SwapItemID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notify">
+            <EntityTypeMapping TypeName="SwapDBModel.Notify">
+              <MappingFragment StoreEntitySet="Notify">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="SubAcc" ColumnName="SubAcc" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SwapItem">
+            <EntityTypeMapping TypeName="SwapDBModel.SwapItem">
+              <MappingFragment StoreEntitySet="SwapItem">
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="ItemStatus" ColumnName="ItemStatus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+                <ScalarProperty Name="ItemDcrpt" ColumnName="ItemDcrpt" />
+                <ScalarProperty Name="ItemTitle" ColumnName="ItemTitle" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SwapTransaction">
+            <EntityTypeMapping TypeName="SwapDBModel.SwapTransaction">
+              <MappingFragment StoreEntitySet="SwapTransaction">
+                <ScalarProperty Name="SwapDate" ColumnName="SwapDate" />
+                <ScalarProperty Name="SwapItemID" ColumnName="SwapItemID" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SwapDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

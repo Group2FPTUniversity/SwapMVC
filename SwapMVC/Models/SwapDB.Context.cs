@@ -44,6 +44,8 @@ public partial class SwapDBEntities : DbContext
 
     public DbSet<Comment> Comment { get; set; }
 
+    public DbSet<Notify> Notify { get; set; }
+
     public DbSet<SwapItem> SwapItem { get; set; }
 
     public DbSet<SwapTransaction> SwapTransaction { get; set; }
